@@ -1,374 +1,284 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AXOLITY</title>
-
-  <!-- Inter (close to the mockup’s feel). If unavailable, falls back to system sans. -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
   <style>
     :root{
-      --green: #1ED760;                 /* icon-matched green */
-      --white: #ffffff;
-      --black: #000000;
-      --nav-bg: rgba(0,0,0,0.78);
-      --overlay: rgba(0,0,0,0.48);
-      --headline-shadow: 0 2px 10px rgba(30,215,96,0.25);
-
-      --nav-h: 84px;
-      --side-pad: 72px;
-      --nav-gap: 72px;
+      --bg:#050806;
+      --text:#EAF3EE;
+      --muted:#A7B7AE;
+      --line: rgba(255,255,255,.22);
+      --pill: rgba(0,0,0,.35);
+      --accent: #33D37A; /* will be overridden by icon vibe; keep as fallback */
+      --shadow: rgba(0,0,0,.55);
     }
 
-    *{ box-sizing: border-box; }
-    html, body{ height: 100%; }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: #000;
-      color: var(--white);
-      overflow-x: hidden;
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
     }
 
-    /* HERO */
+    /* Full hero with background image */
     .hero{
-      position: relative;
-      height: 100vh;
-      min-height: 720px;
-      width: 100%;
-      background: url("hero_bg.png") center/cover no-repeat;
-      isolation: isolate;
+      position:relative;
+      min-height:100vh;
+      width:100%;
+      overflow:hidden;
+      background: #000;
     }
 
-    /* cinematic treatment: dark overlay + subtle vignette */
+    /* Background layer (image + motion) */
     .hero::before{
       content:"";
       position:absolute;
-      inset:0;
-      background: var(--overlay);
-      z-index: 0;
+      inset:-6%;
+      background-image: url("background2560x1440.png"); /* <-- REQUIRED */
+      background-size: cover;
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      filter: saturate(1.05) contrast(1.05);
+      transform: scale(1.02);
+      animation: bgPan 26s ease-in-out infinite alternate;
     }
+
+    /* Dark top vignette like the mockup */
     .hero::after{
       content:"";
       position:absolute;
-      inset:-1px;
+      inset:0;
       background:
-        radial-gradient(1200px 500px at 50% 35%, rgba(0,0,0,0.05), rgba(0,0,0,0.35) 65%, rgba(0,0,0,0.70));
-      z-index: 0;
+        radial-gradient(1200px 520px at 50% 52%, rgba(0,0,0,.15), rgba(0,0,0,.62) 70%, rgba(0,0,0,.78) 100%),
+        linear-gradient(to bottom, rgba(0,0,0,.78) 0%, rgba(0,0,0,.52) 18%, rgba(0,0,0,.30) 45%, rgba(0,0,0,.35) 100%);
       pointer-events:none;
     }
 
-    /* Apply background “softening” without blurring text */
-    .bg-softener{
-      position:absolute;
-      inset:0;
-      background: url("hero_bg.png") center/cover no-repeat;
-      filter: brightness(0.85) contrast(0.95) saturate(1.05);
-      z-index: -1;
-      transform: scale(1.02); /* avoids edge artifacts */
+    @keyframes bgPan{
+      0%   { transform: translate3d(-10px,-6px,0) scale(1.04); }
+      100% { transform: translate3d(10px,6px,0) scale(1.04); }
     }
 
-    /* NAVBAR */
+    /* Nav */
     .nav{
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--nav-h);
-      padding: 0 var(--side-pad);
-      background: var(--nav-bg);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      display: flex;
-      align-items: center;
-      z-index: 10;
-    }
-
-    .nav-inner{
-      width: 100%;
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      column-gap: 32px;
+      position:relative;
+      z-index:2;
+      width:100%;
+      padding: 26px 44px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:32px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap: 14px;
-      user-select:none;
-      white-space:nowrap;
+      gap:14px; /* spacing between icon and AXOLITY */
+      min-width: 240px;
     }
     .brand img{
-      width: 34px;
-      height: 34px;
+      width:36px;
+      height:36px;
       display:block;
+      object-fit:contain;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,.55));
     }
-    .brand span{
-      color: var(--green);
-      font-weight: 600;
+    .brand .name{
+      font-weight:700;
+      letter-spacing: 0.08em;
       font-size: 30px;
-      letter-spacing: 0.06em;
       line-height: 1;
+      color: var(--accent); /* matches green vibe; keep */
+      text-shadow: 0 10px 30px rgba(0,0,0,.55);
     }
 
-    .nav-links{
+    .navlinks{
+      flex:1;
       display:flex;
       align-items:center;
-      justify-content: center;
-      gap: var(--nav-gap);
+      justify-content:center;
+      gap: 96px; /* equal-ish spacing like mockup */
+      color: rgba(255,255,255,.9);
       font-size: 20px;
-      font-weight: 500;
-      line-height: 1;
     }
-    .nav-links a{
-      color: rgba(255,255,255,0.92);
+    .navlinks a{
+      color: rgba(255,255,255,.92);
       text-decoration:none;
-      padding: 6px 2px;
-      transition: opacity .15s ease;
+      font-weight: 500;
+      letter-spacing: .01em;
+      text-shadow: 0 10px 30px rgba(0,0,0,.55);
     }
-    .nav-links a:hover{ opacity: 0.85; }
+    .navlinks a:hover{ opacity:.85; }
 
     .signin{
-      display:inline-flex;
+      min-width: 240px;
+      display:flex;
+      justify-content:flex-end;
       align-items:center;
-      justify-content:center;
-      height: 44px;
-      padding: 0 22px;
-      border: 2px solid rgba(255,255,255,0.70);
-      border-radius: 999px;
-      color: rgba(255,255,255,0.95);
+    }
+    .signin a{
+      color: rgba(255,255,255,.92);
       text-decoration:none;
       font-size: 18px;
-      font-weight: 500;
-      line-height: 1;
-      background: transparent;
-      box-shadow: 0 0 0 rgba(0,0,0,0);
-      transition: border-color .15s ease, opacity .15s ease;
-    }
-    .signin:hover{
-      opacity: 0.92;
-      border-color: rgba(255,255,255,0.85);
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,.45);
+      background: rgba(0,0,0,.25);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,.35);
     }
 
-    /* CENTER CONTENT */
+    /* Hero content */
     .content{
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      padding-top: var(--nav-h);
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      position:relative;
+      z-index:2;
+      width: min(1100px, calc(100% - 80px));
+      margin: 110px auto 0;
       text-align:center;
     }
 
-    .stack{
-      width: min(1100px, calc(100% - 2*var(--side-pad)));
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap: 44px; /* matches mockup spacing */
-      transform: translateY(-10px); /* slight lift like mock */
-    }
-
-    h1{
-      margin: 0;
-      font-size: 52px;
+    .headline{
       font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 1.12;
-      color: rgba(255,255,255,0.96);
-      text-shadow: var(--headline-shadow);
+      font-size: clamp(38px, 4.6vw, 56px);
+      line-height: 1.18;
+      letter-spacing: .01em;
+      color: rgba(255,255,255,.92);
+      text-shadow: 0 18px 50px rgba(0,0,0,.60);
+      margin: 0 0 44px;
     }
 
-    /* Combined pill (input + button inside one container) */
-    .pill{
-      width: min(760px, 92vw);
-      height: 66px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.55);
-      border: 2px solid rgba(30,215,96,0.48);
-      box-shadow: 0 0 22px rgba(30,215,96,0.12);
+    /* Email pill */
+    .cta{
+      margin: 0 auto;
+      width: min(880px, 100%);
       display:flex;
       align-items:center;
-      padding: 6px;
-      gap: 10px;
+      gap: 18px;
+      padding: 16px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.38);
+      border: 2px solid rgba(120,255,190,.35);
+      box-shadow: 0 24px 80px rgba(0,0,0,.55);
+      backdrop-filter: blur(6px);
     }
 
-    .pill input{
-      flex: 1;
-      height: 100%;
-      border: none;
-      outline: none;
-      background: transparent;
-      color: rgba(255,255,255,0.92);
-      font-size: 18px;
-      padding: 0 0 0 22px;
-      letter-spacing: 0.01em;
-    }
-    .pill input::placeholder{
-      color: rgba(255,255,255,0.58);
-    }
-
-    .pill button{
+    .cta input{
+      flex:1;
       height: 52px;
       border-radius: 999px;
-      border: 2px solid rgba(30,215,96,0.70);
-      background: rgba(0,0,0,0.55);
-      color: rgba(255,255,255,0.96);
+      border: 0;
+      outline: none;
+      padding: 0 18px;
       font-size: 18px;
-      font-weight: 500;
-      padding: 0 26px;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      gap: 10px;
-      white-space:nowrap;
-      transition: box-shadow .15s ease, border-color .15s ease, transform .08s ease;
+      color: rgba(255,255,255,.88);
+      background: transparent;
     }
-    .pill button:hover{
-      box-shadow: 0 0 14px rgba(30,215,96,0.22);
-      border-color: rgba(30,215,96,0.82);
-    }
-    .pill button:active{
-      transform: translateY(1px);
+    .cta input::placeholder{
+      color: rgba(255,255,255,.55);
     }
 
-    /* Down arrow button */
-    .down{
-      position: absolute;
-      left: 50%;
-      bottom: 26px;
-      transform: translateX(-50%);
-      width: 56px;
+    .cta button{
       height: 56px;
+      padding: 0 22px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.92);
+      border: 2px solid rgba(120,255,190,.40);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.92);
+      font-size: 18px;
+      cursor:pointer;
       display:flex;
       align-items:center;
-      justify-content:center;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.45);
-      border: 0;
+      gap: 10px;
+      box-shadow: 0 14px 30px rgba(0,0,0,.35);
+    }
+    .cta button:hover{ opacity:.9; }
+
+    /* Scroll indicator */
+    .scroll{
+      position:absolute;
+      z-index:2;
+      left:50%;
+      bottom: 28px;
+      transform: translateX(-50%);
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.9);
+      display:grid;
+      place-items:center;
+      box-shadow: 0 18px 50px rgba(0,0,0,.55);
       cursor:pointer;
-      z-index: 2;
     }
-    .down svg{
-      width: 22px;
-      height: 22px;
-      fill: none;
-      stroke: rgba(0,0,0,0.90);
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      transform: translateY(1px);
+    .scroll span{
+      display:block;
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid rgba(0,0,0,.75);
+      border-bottom: 2px solid rgba(0,0,0,.75);
+      transform: rotate(45deg);
+      margin-top: -2px;
     }
 
-    /* Make sure background treatment stays subtle on very large screens */
-    @media (min-width: 1600px){
-      .hero::before{ background: rgba(0,0,0,0.44); }
+    /* Responsive tweaks */
+    @media (max-width: 980px){
+      .navlinks{ gap: 44px; font-size: 18px; }
+      .brand .name{ font-size: 26px; }
+      .signin{ min-width:auto; }
     }
-
-    /* Responsive (minimal; keep desktop layout intent) */
-    @media (max-width: 1100px){
-      :root{
-        --side-pad: 40px;
-        --nav-gap: 56px;
+    @media (max-width: 760px){
+      .nav{
+        padding: 18px 18px;
+        gap: 14px;
       }
-      h1{ font-size: 46px; }
-    }
-
-    @media (max-width: 900px){
-      :root{
-        --side-pad: 24px;
-        --nav-gap: 36px;
-      }
-      .nav-links{ font-size: 18px; }
-      .brand span{ font-size: 26px; }
-      h1{ font-size: 40px; }
-      .pill{ height: 62px; }
-      .pill button{ height: 50px; font-size: 17px; }
-      .pill input{ font-size: 17px; }
-    }
-
-    @media (max-width: 720px){
-      /* keep structure but reduce spacing */
-      .nav-inner{ grid-template-columns: auto auto; }
-      .nav-links{ display:none; } /* simple collapse; mockup is desktop-first */
-      .stack{ width: min(1100px, calc(100% - 2*var(--side-pad))); gap: 34px; }
-      h1{ font-size: 34px; }
-      .pill{
-        flex-direction: column;
-        height: auto;
-        padding: 10px;
-        border-radius: 28px;
-      }
-      .pill input{
-        height: 54px;
-        padding-left: 18px;
-      }
-      .pill button{
-        width: 100%;
-        justify-content:center;
-      }
+      .navlinks{ display:none; } /* optional: hide links on mobile */
+      .content{ width: calc(100% - 36px); margin-top: 90px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Background softener layer (separate from text) -->
-  <div class="bg-softener" aria-hidden="true"></div>
-
-  <header class="nav">
-    <div class="nav-inner">
+  <main class="hero">
+    <header class="nav">
       <div class="brand">
+        <!-- ICON (must exist in same folder) -->
         <img src="neural_icon.png" alt="Axolity icon" />
-        <span>AXOLITY</span>
+        <div class="name">AXOLITY</div>
       </div>
 
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#solutions">Solutions</a>
-        <a href="#research">Research</a>
-        <a href="#company">Company</a>
-        <a href="#jobs">Jobs</a>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#">Solutions</a>
+        <a href="#">Research</a>
+        <a href="#">Company</a>
+        <a href="#">Jobs</a>
       </nav>
 
-      <a class="signin" href="#signin">Sign in</a>
-    </div>
-  </header>
-
-  <main class="hero">
-    <div class="content">
-      <div class="stack">
-        <h1>
-          Agentic AI Powered Solutions<br/>
-          Without the Technical Barrier
-        </h1>
-
-        <form class="pill" action="#" method="post" autocomplete="on">
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your work email"
-            aria-label="Work email"
-          />
-          <button type="submit">
-            <span>Get a demo</span>
-            <span aria-hidden="true">→</span>
-          </button>
-        </form>
+      <div class="signin">
+        <a href="#">Sign in</a>
       </div>
+    </header>
 
-      <button class="down" aria-label="Scroll down" onclick="window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 5v12"></path>
-          <path d="M7 13l5 5 5-5"></path>
-        </svg>
-      </button>
+    <section class="content">
+      <h1 class="headline">
+        Agentic AI Powered Solutions<br/>
+        Without the Technical Barrier
+      </h1>
+
+      <form class="cta" onsubmit="event.preventDefault();">
+        <input type="email" placeholder="Enter your work email" aria-label="Work email" />
+        <button type="submit">
+          Get a demo <span aria-hidden="true">→</span>
+        </button>
+      </form>
+    </section>
+
+    <div class="scroll" title="Scroll">
+      <span></span>
     </div>
   </main>
 </body>
