@@ -344,34 +344,104 @@
       }
 
 
-      .subcopy {
-        margin: 26px auto 0;
-        max-width: 760px;
-        color: rgba(255, 255, 255, 0.9);
-        font-size: clamp(20px, 2vw, 30px);
-        line-height: 1.3;
-      }
-
-      .back-home {
-        margin: 34px auto 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 52px;
-        padding: 0 24px;
-        border-radius: 999px;
-        border: 1.5px solid rgba(30, 215, 96, 0.72);
-        background: rgba(0, 0, 0, 0.55);
-        color: #fff;
-        text-decoration: none;
-        font-size: 18px;
-      }
-
-      .back-home:hover,
-      .back-home:focus-visible {
-        outline: none;
+      #hero h1 {
         color: var(--primary-green);
-        box-shadow: 0 0 14px rgba(30, 215, 96, 0.28);
+        font-weight: 700;
+      }
+
+      .word-content {
+        margin: 30px auto 0;
+        width: min(1050px, calc(100vw - 72px));
+        color: #f1f7f2;
+        text-align: center;
+        font-family: "Times New Roman", Times, serif;
+        line-height: 1.55;
+      }
+
+      .word-content p {
+        margin: 0 0 18px;
+        font-size: clamp(21px, 1.45vw, 30px);
+      }
+
+      .word-content h2 {
+        margin: 30px 0 12px;
+        font-size: clamp(29px, 2.1vw, 40px);
+        line-height: 1.2;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .word-content .how-it-works-toggle,
+      .word-content .why-axolity-toggle {
+        font-weight: 700;
+        color: #ffffff;
+        text-decoration: underline;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        font-family: "Times New Roman", Times, serif;
+        font-size: clamp(40px, 3.5vw, 58px);
+        line-height: 1.1;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .word-content .how-it-works-toggle:hover,
+      .word-content .how-it-works-toggle:focus-visible {
+        color: #b8ffd1;
+        outline: none;
+      }
+
+      .word-content .why-axolity-toggle:hover,
+      .word-content .why-axolity-toggle:focus-visible {
+        color: #ffffff;
+        outline: none;
+      }
+
+      .word-content .how-it-works-toggle {
+        margin-top: calc(22px + 2.8em);
+      }
+
+      .word-content .how-it-works-content[hidden] {
+        display: none;
+      }
+
+      .word-content .why-axolity-toggle {
+        margin-top: calc(22px + 5.6em);
+      }
+
+      .word-content .why-axolity-content[hidden] {
+        display: none;
+      }
+
+      .word-content ol {
+        margin: 16px auto 0;
+        padding-left: 20px;
+        text-align: left;
+        display: inline-block;
+      }
+
+      .word-content li {
+        margin-bottom: 16px;
+        font-size: clamp(21px, 1.45vw, 30px);
+      }
+
+      .word-content li p {
+        margin: 8px 0 0;
+      }
+
+      .word-content .built-on-heading {
+        margin-top: calc(30px + 2.8em);
+      }
+
+      .word-content .learn-more {
+        margin-top: 24px;
+      }
+
+      .word-content .learn-more a {
+        color: #b8ffd1;
+        text-decoration: underline;
       }
 
       @media (max-width: 1200px) {
@@ -603,15 +673,76 @@
             <section id="hero" aria-label="Hero">
         <div class="hero-content">
           <h1>
-            Building
+            Come Up With An Idea<br />
+            Watch It Turn Into Reality.
           </h1>
-          <p class="subcopy">filler message for building landing page testing 123</p>
-          <a class="back-home" href="index.html">Back to home</a>
+          <div class="word-content" aria-label="Building page body content">
+            <p>Let Axolity handle everything in between.</p>
+
+            <p>Build, plan, and ship outcomes without expanding headcount.<br />
+            Axolity turns a single objective into an execution plan and handoff ready deliverables, produced by a staffed AI agent team working 24/7.</p>
+
+            <h2>What you do</h2>
+            <p>Describe your objective.<br />
+            Examples: Build a dating app for people that walk their dogs in the same area.</p>
+
+            <h2>What Axolity delivers</h2>
+            <p>Axolity plans, executes, and validates the work end to end.<br />
+            You get real outputs: assets, copy, code, workflows, and documentation, ready to use.</p>
+
+            <button
+              class="how-it-works-toggle"
+              id="how-it-works-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="how-it-works-content"
+            >
+              How It Works
+            </button>
+            <div id="how-it-works-content" class="how-it-works-content" hidden>
+            <ol>
+              <li>
+                <strong>Plan</strong>
+                <p>We translate your objective into a step-by-step execution plan with milestones and acceptance criteria.</p>
+              </li>
+              <li>
+                <strong>Staff</strong>
+                <p>From our AI agent marketplace, Axolity assembles a specialized agent team, for example product, UX, copy, engineering, and QA, like a real project team on demand.</p>
+              </li>
+              <li>
+                <strong>Orchestrate and QA</strong>
+                <p>Axolity acts as the manager agent: coordinating work, running verification checks, and iterating until deliverables meet spec.</p>
+              </li>
+              <li>
+                <strong>Deliver</strong>
+                <p>You receive packaged outputs with clear next steps and handoff ready documentation.</p>
+              </li>
+            </ol>
+            </div>
+
+            <button
+              class="why-axolity-toggle"
+              id="why-axolity-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="why-axolity-content"
+            >
+              Why Axolity
+            </button>
+            <div id="why-axolity-content" class="why-axolity-content" hidden>
+            <p>Orchestration beats “one model, one prompt.”<br />
+            Most tools generate answers. Axolity runs a managed process: multi agent specialization, structured execution, and verification loops. Think of using Axolity as hiring a team.</p>
+            </div>
+
+            <h2 class="built-on-heading">Built on our Cognition Engine</h2>
+            <p>A system developed over 3 years to change how AI handles interacting with other AI. Axolity (the master AI) is able to prompt agents, enforce structure, and continuously validate results.</p>
+            <p class="learn-more">Learn more → <a href="#research">Research</a></p>
+          </div>
         </div>
       </section>
     </div>
 
-    <script><script>
+    <script>
       (function () {
         const body = document.body;
         const menuToggle = document.querySelector(".menu-toggle");
@@ -692,6 +823,34 @@
             allDropdowns.forEach(closeDropdown);
           });
         });
+
+        const whyAxolityToggle = document.getElementById("why-axolity-toggle");
+        const whyAxolityContent = document.getElementById("why-axolity-content");
+        if (whyAxolityToggle && whyAxolityContent) {
+          whyAxolityToggle.addEventListener("click", () => {
+            const willOpen = whyAxolityContent.hasAttribute("hidden");
+            if (willOpen) {
+              whyAxolityContent.removeAttribute("hidden");
+            } else {
+              whyAxolityContent.setAttribute("hidden", "");
+            }
+            whyAxolityToggle.setAttribute("aria-expanded", String(willOpen));
+          });
+        }
+
+        const howItWorksToggle = document.getElementById("how-it-works-toggle");
+        const howItWorksContent = document.getElementById("how-it-works-content");
+        if (howItWorksToggle && howItWorksContent) {
+          howItWorksToggle.addEventListener("click", () => {
+            const willOpen = howItWorksContent.hasAttribute("hidden");
+            if (willOpen) {
+              howItWorksContent.removeAttribute("hidden");
+            } else {
+              howItWorksContent.setAttribute("hidden", "");
+            }
+            howItWorksToggle.setAttribute("aria-expanded", String(willOpen));
+          });
+        }
       })();
     </script>
   </body>
