@@ -66,6 +66,7 @@
         background: rgba(0, 0, 0, var(--nav-opacity));
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(120, 255, 167, 0.34);
         z-index: 200;
       }
 
@@ -347,101 +348,99 @@
       #hero h1 {
         color: var(--primary-green);
         font-weight: 700;
+        line-height: 1.02;
+        letter-spacing: 0.01em;
       }
 
       .word-content {
-        margin: 30px auto 0;
-        width: min(1050px, calc(100vw - 72px));
+        margin: 24px auto 0;
+        width: min(1120px, calc(100vw - 72px));
         color: #f1f7f2;
         text-align: center;
         font-family: "Times New Roman", Times, serif;
-        line-height: 1.55;
+        line-height: 1.5;
       }
 
-      .word-content p {
-        margin: 0 0 18px;
-        font-size: clamp(21px, 1.45vw, 30px);
+      .hero-copy {
+        margin: 12px auto 0;
+        max-width: 1120px;
       }
 
-      .word-content h2 {
-        margin: 30px 0 12px;
-        font-size: clamp(29px, 2.1vw, 40px);
-        line-height: 1.2;
-        font-weight: 700;
-        color: #ffffff;
+      .hero-copy p {
+        margin: 10px 0;
+        font-size: clamp(24px, 2.1vw, 48px);
+        line-height: 1.18;
       }
 
-      .word-content .how-it-works-toggle,
-      .word-content .why-axolity-toggle {
-        font-weight: 700;
-        color: #ffffff;
-        text-decoration: underline;
-        background: transparent;
-        border: 0;
-        cursor: pointer;
-        font-family: "Times New Roman", Times, serif;
-        font-size: clamp(40px, 3.5vw, 58px);
-        line-height: 1.1;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+      .cards {
+        margin: 44px auto 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 34px;
+        align-items: stretch;
       }
 
-      .word-content .how-it-works-toggle:hover,
-      .word-content .how-it-works-toggle:focus-visible {
-        color: #b8ffd1;
-        outline: none;
-      }
-
-      .word-content .why-axolity-toggle:hover,
-      .word-content .why-axolity-toggle:focus-visible {
-        color: #ffffff;
-        outline: none;
-      }
-
-      .word-content .how-it-works-toggle {
-        margin-top: calc(22px + 2.8em);
-      }
-
-      .word-content .how-it-works-content[hidden] {
-        display: none;
-      }
-
-      .word-content .why-axolity-toggle {
-        margin-top: calc(22px + 5.6em);
-      }
-
-      .word-content .why-axolity-content[hidden] {
-        display: none;
-      }
-
-      .word-content ol {
-        margin: 16px auto 0;
-        padding-left: 20px;
+      .info-card {
+        min-height: 304px;
+        border: 1px solid rgba(164, 255, 194, 0.5);
+        border-radius: 20px;
+        padding: 28px 34px 30px;
         text-align: left;
-        display: inline-block;
+        background: linear-gradient(180deg, rgba(3, 20, 11, 0.66), rgba(0, 0, 0, 0.58));
+        box-shadow:
+          inset 0 0 40px rgba(79, 255, 156, 0.08),
+          0 0 28px rgba(120, 255, 167, 0.1);
       }
 
-      .word-content li {
-        margin-bottom: 16px;
-        font-size: clamp(21px, 1.45vw, 30px);
+      .card-title {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 14px;
+        color: #60ef95;
+        font-family: "Inter", sans-serif;
+        font-size: clamp(28px, 2.05vw, 40px);
+        font-weight: 600;
+        line-height: 1.1;
       }
 
-      .word-content li p {
-        margin: 8px 0 0;
+      .card-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: rgba(89, 255, 147, 0.12);
+        border: 1px solid rgba(126, 255, 176, 0.35);
+        color: #8bffb4;
+        font-size: 24px;
+        line-height: 1;
       }
 
-      .word-content .built-on-heading {
-        margin-top: calc(30px + 2.8em);
+      .info-card p {
+        margin: 0 0 14px;
+        font-size: clamp(23px, 1.65vw, 35px);
+        line-height: 1.34;
       }
 
-      .word-content .learn-more {
-        margin-top: 24px;
+      .get-started-wrap {
+        margin-top: 34px;
+        display: flex;
+        justify-content: center;
       }
 
-      .word-content .learn-more a {
-        color: #b8ffd1;
-        text-decoration: underline;
+      .get-started {
+        min-width: 340px;
+        height: 78px;
+        border-radius: 999px;
+        border: 1px solid rgba(177, 255, 196, 0.8);
+        background: linear-gradient(180deg, #93ffa8, #68f08f);
+        color: #08220f;
+        font-family: "Inter", sans-serif;
+        font-size: clamp(44px, 2.4vw, 55px);
+        font-weight: 700;
+        box-shadow: 0 0 30px rgba(108, 255, 150, 0.45);
       }
 
       @media (max-width: 1200px) {
@@ -455,6 +454,21 @@
       }
 
       @media (max-width: 900px) {
+        .cards {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+
+        .info-card {
+          min-height: auto;
+          padding: 22px 22px 24px;
+        }
+
+        .get-started {
+          min-width: 270px;
+          height: 68px;
+        }
+
         #top-nav {
           padding: 0 16px;
           height: 74px;
@@ -674,69 +688,32 @@
         <div class="hero-content">
           <h1>
             Come Up With An Idea<br />
-            Watch It Turn Into Reality.
+            Watch It Turn Into Reality
           </h1>
           <div class="word-content" aria-label="Building page body content">
-            <p>Let Axolity handle everything in between.</p>
-
-            <p>Build, plan, and ship outcomes without expanding headcount.<br />
-            Axolity turns a single objective into an execution plan and handoff ready deliverables, produced by a staffed AI agent team working 24/7.</p>
-
-            <h2>What you do</h2>
-            <p>Describe your objective.<br />
-            Examples: Build a dating app for people that walk their dogs in the same area.</p>
-
-            <h2>What Axolity delivers</h2>
-            <p>Axolity plans, executes, and validates the work end to end.<br />
-            You get real outputs: assets, copy, code, workflows, and documentation, ready to use.</p>
-
-            <button
-              class="how-it-works-toggle"
-              id="how-it-works-toggle"
-              type="button"
-              aria-expanded="false"
-              aria-controls="how-it-works-content"
-            >
-              How It Works
-            </button>
-            <div id="how-it-works-content" class="how-it-works-content" hidden>
-            <ol>
-              <li>
-                <strong>Plan</strong>
-                <p>We translate your objective into a step-by-step execution plan with milestones and acceptance criteria.</p>
-              </li>
-              <li>
-                <strong>Staff</strong>
-                <p>From our AI agent marketplace, Axolity assembles a specialized agent team, for example product, UX, copy, engineering, and QA, like a real project team on demand.</p>
-              </li>
-              <li>
-                <strong>Orchestrate and QA</strong>
-                <p>Axolity acts as the manager agent: coordinating work, running verification checks, and iterating until deliverables meet spec.</p>
-              </li>
-              <li>
-                <strong>Deliver</strong>
-                <p>You receive packaged outputs with clear next steps and handoff ready documentation.</p>
-              </li>
-            </ol>
+            <div class="hero-copy">
+              <p>Let Axolity handle everything in between.</p>
+              <p>Build, plan, and ship outcomes without expanding headcount.</p>
+              <p>Axolity turns a single objective into an execution plan and handoff ready deliverables, produced by a staffed AI agent team working 24/7.</p>
             </div>
 
-            <button
-              class="why-axolity-toggle"
-              id="why-axolity-toggle"
-              type="button"
-              aria-expanded="false"
-              aria-controls="why-axolity-content"
-            >
-              Why Axolity
-            </button>
-            <div id="why-axolity-content" class="why-axolity-content" hidden>
-            <p>Orchestration beats “one model, one prompt.”<br />
-            Most tools generate answers. Axolity runs a managed process: multi agent specialization, structured execution, and verification loops. Think of using Axolity as hiring a team.</p>
+            <div class="cards" aria-label="Building information cards">
+              <article class="info-card">
+                <h2 class="card-title"><span class="card-icon" aria-hidden="true">⚡</span>What you do</h2>
+                <p>Describe your objective.</p>
+                <p><strong>Example:</strong> Build a dating app for people that walk their dogs in the same area.</p>
+              </article>
+
+              <article class="info-card">
+                <h2 class="card-title"><span class="card-icon" aria-hidden="true">⚙</span>What Axolity delivers</h2>
+                <p>Axolity plans, executes, and validates the work end to end.</p>
+                <p>You get real outputs: assets, copy, code, workflows, and documentation, ready to use.</p>
+              </article>
             </div>
 
-            <h2 class="built-on-heading">Built on our Cognition Engine</h2>
-            <p>A system developed over 3 years to change how AI handles interacting with other AI. Axolity (the master AI) is able to prompt agents, enforce structure, and continuously validate results.</p>
-            <p class="learn-more">Learn more → <a href="#research">Research</a></p>
+            <div class="get-started-wrap">
+              <button class="get-started" type="button">Get Started</button>
+            </div>
           </div>
         </div>
       </section>
@@ -823,34 +800,6 @@
             allDropdowns.forEach(closeDropdown);
           });
         });
-
-        const whyAxolityToggle = document.getElementById("why-axolity-toggle");
-        const whyAxolityContent = document.getElementById("why-axolity-content");
-        if (whyAxolityToggle && whyAxolityContent) {
-          whyAxolityToggle.addEventListener("click", () => {
-            const willOpen = whyAxolityContent.hasAttribute("hidden");
-            if (willOpen) {
-              whyAxolityContent.removeAttribute("hidden");
-            } else {
-              whyAxolityContent.setAttribute("hidden", "");
-            }
-            whyAxolityToggle.setAttribute("aria-expanded", String(willOpen));
-          });
-        }
-
-        const howItWorksToggle = document.getElementById("how-it-works-toggle");
-        const howItWorksContent = document.getElementById("how-it-works-content");
-        if (howItWorksToggle && howItWorksContent) {
-          howItWorksToggle.addEventListener("click", () => {
-            const willOpen = howItWorksContent.hasAttribute("hidden");
-            if (willOpen) {
-              howItWorksContent.removeAttribute("hidden");
-            } else {
-              howItWorksContent.setAttribute("hidden", "");
-            }
-            howItWorksToggle.setAttribute("aria-expanded", String(willOpen));
-          });
-        }
       })();
     </script>
   </body>
