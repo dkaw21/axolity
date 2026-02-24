@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axolity — Company</title>
+    <meta
+      name="description"
+      content="Axolity is building the operating layer for agentic AI with research-informed systems design and production-ready execution."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --green: #1ed760;
+        --white: #ffffff;
+        --muted: rgba(235, 245, 238, 0.82);
+        --panel: rgba(5, 19, 11, 0.58);
+        --panel-2: rgba(6, 17, 11, 0.72);
+        --line: rgba(133, 255, 182, 0.3);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        font-family: "Inter", sans-serif;
+        background: #000;
+        color: var(--white);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      .page {
+        position: relative;
+        overflow: hidden;
+      }
+
+      #top-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: 92px;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(0, 0, 0, 0.84);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(120, 255, 167, 0.34);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .brand img {
+        width: 34px;
+        height: 34px;
+        margin-right: 14px;
+      }
+
+      .brand span {
+        color: var(--green);
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.045em;
+      }
+
+      .nav-center {
+        display: flex;
+        gap: 64px;
+        align-items: center;
+      }
+
+      .navlink {
+        color: #fff;
+        opacity: 0.95;
+        text-decoration: none;
+        font-size: 20px;
+      }
+
+      .navlink.company-active {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(30, 215, 96, 0.42);
+        border-bottom: 1px solid rgba(122, 255, 177, 0.6);
+        padding-bottom: 4px;
+      }
+
+      .signin {
+        color: #fff;
+        text-decoration: none;
+        border: 1.5px solid rgba(255, 255, 255, 0.58);
+        border-radius: 999px;
+        padding: 10px 30px;
+        font-size: 20px;
+      }
+
+      .hero {
+        min-height: 100vh;
+        position: relative;
+        padding: 138px 24px 88px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: url("background2560x1440.png");
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.77) contrast(0.96) saturate(1.04);
+        animation: drift 28s ease-in-out infinite alternate;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 48% 40%, rgba(15, 59, 34, 0.3), rgba(0, 0, 0, 0.62) 56%, rgba(0, 0, 0, 0.84) 100%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.7));
+      }
+
+      @keyframes drift {
+        0% {
+          transform: scale(1.01);
+          background-position: 50% 50%;
+        }
+        100% {
+          transform: scale(1.03);
+          background-position: 52% 48%;
+        }
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: 980px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: clamp(42px, 5vw, 80px);
+        line-height: 1.05;
+        font-weight: 700;
+        text-shadow: 0 2px 15px rgba(84, 255, 148, 0.22);
+      }
+
+      .sub {
+        margin: 34px auto 0;
+        max-width: 920px;
+        color: var(--muted);
+        font-size: clamp(18px, 1.35vw, 24px);
+        line-height: 1.58;
+      }
+
+      .hero-nav {
+        margin-top: 44px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .scroll-cue {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        background: rgba(3, 9, 6, 0.9);
+        border: 1px solid rgba(139, 255, 186, 0.64);
+        box-shadow: 0 0 20px rgba(100, 255, 154, 0.22), inset 0 0 0 1px rgba(166, 255, 201, 0.14);
+        color: rgba(241, 247, 244, 0.9);
+        font-size: 26px;
+        line-height: 1;
+        transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        animation: cuePulse 5.5s ease-in-out infinite;
+      }
+
+      .scroll-cue:hover {
+        transform: translateY(-2px);
+        border-color: rgba(164, 255, 202, 0.9);
+        box-shadow: 0 0 30px rgba(104, 255, 157, 0.36), inset 0 0 0 1px rgba(177, 255, 209, 0.25);
+      }
+
+      .scroll-cue:active {
+        transform: scale(0.97);
+      }
+
+      .mini-anchor-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-size: 13px;
+        letter-spacing: 0.05em;
+        flex-wrap: wrap;
+      }
+
+      .mini-anchor-nav .sep {
+        color: rgba(168, 194, 178, 0.56);
+      }
+
+      .mini-anchor-nav a {
+        color: rgba(225, 237, 230, 0.75);
+        text-decoration: none;
+        background-image: linear-gradient(rgba(145, 255, 190, 0.9), rgba(145, 255, 190, 0.9));
+        background-repeat: no-repeat;
+        background-position: 0 100%;
+        background-size: 0% 1px;
+        transition: color 0.22s ease, text-shadow 0.22s ease, background-size 0.22s ease;
+      }
+
+      .mini-anchor-nav a:hover,
+      .mini-anchor-nav a:focus-visible {
+        color: rgba(202, 255, 223, 0.96);
+        text-shadow: 0 0 8px rgba(99, 255, 152, 0.4);
+        background-size: 100% 1px;
+      }
+
+      .section {
+        position: relative;
+        z-index: 2;
+        width: min(1160px, calc(100vw - 52px));
+        margin: 36px auto 0;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        backdrop-filter: blur(12px);
+        padding: 32px;
+        box-shadow: inset 0 1px 0 rgba(186, 255, 214, 0.16), 0 12px 34px rgba(0, 0, 0, 0.35), 0 0 22px rgba(104, 255, 156, 0.15);
+      }
+
+      .anchor-target {
+        scroll-margin-top: 112px;
+      }
+
+      .label {
+        color: var(--green);
+        letter-spacing: 0.1em;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 14px;
+      }
+
+      h2 {
+        font-size: clamp(30px, 3vw, 46px);
+        line-height: 1.12;
+        margin-bottom: 14px;
+      }
+
+      .copy {
+        color: var(--muted);
+        font-size: clamp(16px, 1.16vw, 19px);
+        line-height: 1.62;
+      }
+
+      .copy + .copy {
+        margin-top: 14px;
+      }
+
+      .pill-row {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .pill {
+        padding: 9px 14px;
+        border: 1px solid rgba(132, 255, 182, 0.36);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.42);
+        font-size: 14px;
+        color: #ddf9e8;
+      }
+
+      .grid-3,
+      .grid-6 {
+        display: grid;
+        gap: 16px;
+      }
+
+      .grid-3 {
+        margin-top: 14px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .grid-6 {
+        margin-top: 14px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .mini-card {
+        background: var(--panel-2);
+        border: 1px solid rgba(139, 255, 186, 0.26);
+        border-radius: 16px;
+        padding: 18px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .mini-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(139, 255, 186, 0.46);
+        box-shadow: 0 0 22px rgba(108, 255, 157, 0.24);
+      }
+
+      .mini-card h3 {
+        color: #8fffb8;
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+
+      .mini-card h4 {
+        color: #8fffb8;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+
+      .mini-card p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .flow {
+        margin-top: 22px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .flow .node {
+        padding: 10px 14px;
+        border: 1px solid rgba(132, 255, 182, 0.36);
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.42);
+        font-size: 14px;
+      }
+
+      .flow .arrow {
+        color: rgba(186, 255, 213, 0.74);
+      }
+
+      .two-col {
+        margin-top: 8px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .list-card {
+        background: rgba(0, 0, 0, 0.42);
+        border: 1px solid rgba(138, 255, 186, 0.24);
+        border-radius: 14px;
+        padding: 18px;
+      }
+
+      .list-card h3 {
+        color: #c5ffd9;
+        margin-bottom: 10px;
+      }
+
+      .list-card ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .list-card li {
+        color: var(--muted);
+        padding-left: 20px;
+        position: relative;
+        margin: 10px 0;
+      }
+
+      .list-card li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #9effc3;
+      }
+
+      .deliver-note {
+        margin-top: 16px;
+        color: rgba(213, 242, 225, 0.86);
+      }
+
+      .profile-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .profile-block h3 {
+        color: #c5ffd9;
+        margin-bottom: 8px;
+      }
+
+      .profile-block p {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .descriptor-grid {
+        margin-top: 18px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .descriptor {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(138, 255, 186, 0.24);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+
+      .descriptor .k {
+        color: #98ffc2;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .descriptor .v {
+        margin-top: 4px;
+        color: rgba(226, 246, 235, 0.88);
+        font-size: 14px;
+      }
+
+      .final {
+        text-align: center;
+        padding: 56px 20px 88px;
+      }
+
+      .final .copy {
+        max-width: 940px;
+        margin: 0 auto;
+      }
+
+      .final .btn {
+        margin-top: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        min-width: 350px;
+        height: 66px;
+        border-radius: 999px;
+        border: 1px solid rgba(185, 255, 208, 0.84);
+        background: linear-gradient(180deg, #adffc1, #70f393);
+        color: #072311;
+        font-weight: 700;
+        font-size: 20px;
+        box-shadow: 0 0 26px rgba(109, 255, 158, 0.44);
+        animation: pulse 5.2s ease-in-out infinite;
+      }
+
+      .final .link,
+      .final .tertiary {
+        display: block;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        color: #b8ffd1;
+        text-decoration: none;
+        background-image: linear-gradient(currentColor, currentColor);
+        background-repeat: no-repeat;
+        background-size: 0% 1px;
+        background-position: 0 100%;
+        transition: background-size 0.25s ease;
+      }
+
+      .final .link,
+      .final .tertiary {
+        margin-top: 14px;
+        color: #b8ffd1;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .final .link:hover,
+      .final .tertiary:hover {
+        background-size: 100% 1px;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 22px rgba(101, 255, 153, 0.34);
+        }
+        50% {
+          box-shadow: 0 0 30px rgba(101, 255, 153, 0.5);
+        }
+      }
+
+      @keyframes cuePulse {
+        0%,
+        100% {
+          transform: translateY(0);
+          box-shadow: 0 0 20px rgba(100, 255, 154, 0.22), inset 0 0 0 1px rgba(166, 255, 201, 0.14);
+        }
+        45% {
+          transform: translateY(-1px);
+        }
+        50% {
+          box-shadow: 0 0 27px rgba(100, 255, 154, 0.32), inset 0 0 0 1px rgba(166, 255, 201, 0.2);
+        }
+      }
+
+      @media (max-width: 1180px) {
+        .flow .arrow:last-of-type {
+          display: none;
+        }
+      }
+
+      @media (max-width: 900px) {
+        #top-nav {
+          padding: 0 16px;
+          height: 76px;
+        }
+
+        .nav-center,
+        .signin {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 104px;
+        }
+
+        .hero-nav {
+          margin-top: 34px;
+          gap: 14px;
+        }
+
+        .mini-anchor-nav {
+          gap: 8px;
+          font-size: 12px;
+        }
+
+        .grid-3,
+        .grid-6,
+        .two-col,
+        .profile-main,
+        .descriptor-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .flow {
+          display: grid;
+          grid-template-columns: 1fr;
+          justify-items: center;
+          gap: 8px;
+        }
+
+        .flow .arrow {
+          transform: rotate(90deg);
+        }
+
+        .final .btn {
+          min-width: 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav id="top-nav" aria-label="Primary">
+        <a class="brand" href="index.html" aria-label="Axolity home">
+          <img src="neural_icon.png" alt="Axolity icon" />
+          <span>AXOLITY</span>
+        </a>
+        <div class="nav-center">
+          <a class="navlink" href="building.html">Solutions ▾</a>
+          <a class="navlink" href="research.html">Research</a>
+          <a class="navlink company-active" href="company.html">Company</a>
+          <a class="navlink" href="hiring.html">Jobs</a>
+        </div>
+        <a class="signin" href="#signin">Sign in</a>
+      </nav>
+
+      <section class="hero">
+        <div class="hero-inner">
+          <h1>Building the Operating Layer<br />for Agentic AI</h1>
+          <p class="sub">
+            Axolity exists to make advanced AI systems usable in real businesses — translating goals into execution through agentic workflows, recursive optimization, and production-ready outputs.
+          </p>
+          <div class="hero-nav" aria-label="Company page quick navigation">
+            <a class="scroll-cue" href="#mission" aria-label="Scroll to mission">↓</a>
+            <div class="mini-anchor-nav">
+              <a href="#mission" aria-label="Jump to Mission section">Mission</a>
+              <span class="sep" aria-hidden="true">•</span>
+              <a href="#how-we-build" aria-label="Jump to How We Build section">How We Build</a>
+              <span class="sep" aria-hidden="true">•</span>
+              <a href="#principles" aria-label="Jump to Principles section">Principles</a>
+              <span class="sep" aria-hidden="true">•</span>
+              <a href="#company-profile" aria-label="Jump to Company Profile section">Company Profile</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section panel anchor-target" id="mission">
+        <div class="label">WHY AXOLITY</div>
+        <h2>AI is powerful. Operationalizing it is the hard part.</h2>
+        <p class="copy">
+          Most teams can access capable models, but access alone does not create reliable execution. The hard work sits in workflow design, coordination logic, quality controls, and the mechanics of turning goals into repeatable delivery.
+        </p>
+        <p class="copy">
+          Axolity is built to close that gap. We convert business objectives into managed agentic systems that can decompose work, orchestrate execution, and produce outputs teams can use immediately.
+        </p>
+        <p class="copy">
+          Our approach reduces technical barriers for customers while preserving system sophistication: structured orchestration, evaluative feedback, and bounded automation that remains accountable to human operators.
+        </p>
+        <div class="pill-row" aria-label="Axolity mission pillars">
+          <span class="pill">Agentic Workflows</span>
+          <span class="pill">Recursive Optimization</span>
+          <span class="pill">Production Outputs</span>
+          <span class="pill">Human Oversight</span>
+        </div>
+      </section>
+
+      <section class="section panel anchor-target" id="how-we-build">
+        <div class="label">HOW WE BUILD</div>
+        <h2>How we build at Axolity</h2>
+        <div class="grid-3">
+          <article class="mini-card">
+            <h3>Systems Thinking</h3>
+            <p>We design end-to-end workflows that connect planning, execution, and review instead of relying on isolated prompts.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Measurable Improvement</h3>
+            <p>We optimize toward defined metrics, quality thresholds, and outcomes so progress is observable and actionable.</p>
+          </article>
+          <article class="mini-card">
+            <h3>Human-Governed Automation</h3>
+            <p>We use bounded automation with approvals and observability so high-impact actions remain under human control.</p>
+          </article>
+        </div>
+        <div class="flow" aria-label="Axolity delivery process">
+          <span class="node">Objective</span><span class="arrow">→</span>
+          <span class="node">Decomposition</span><span class="arrow">→</span>
+          <span class="node">Agent Team</span><span class="arrow">→</span>
+          <span class="node">Execution</span><span class="arrow">→</span>
+          <span class="node">Evaluation</span><span class="arrow">→</span>
+          <span class="node">Delivery</span>
+        </div>
+      </section>
+
+      <section class="section panel anchor-target" id="principles">
+        <div class="label">COMPANY PRINCIPLES</div>
+        <div class="grid-6">
+          <article class="mini-card">
+            <h4>Clarity over complexity</h4>
+            <p>We prioritize understandable system behavior and clean interfaces over unnecessary abstraction.</p>
+          </article>
+          <article class="mini-card">
+            <h4>Outcomes over demos</h4>
+            <p>We focus on measurable delivery that integrates into real work, not one-off prototype moments.</p>
+          </article>
+          <article class="mini-card">
+            <h4>Rigor over hype</h4>
+            <p>We validate with tests, evaluations, and feedback loops before claiming capability.</p>
+          </article>
+          <article class="mini-card">
+            <h4>Human control by default</h4>
+            <p>Operators set goals, boundaries, and approvals while automation executes within those constraints.</p>
+          </article>
+          <article class="mini-card">
+            <h4>Systems that improve</h4>
+            <p>We design workflows that learn from execution and refine strategy over time.</p>
+          </article>
+          <article class="mini-card">
+            <h4>Build for production</h4>
+            <p>Reliability, observability, and handoff readiness are first-class requirements from day one.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section panel">
+        <div class="label">WHAT AXOLITY DELIVERS</div>
+        <div class="two-col">
+          <article class="list-card">
+            <h3>What customers bring</h3>
+            <ul>
+              <li>Business objective</li>
+              <li>Constraints</li>
+              <li>Success criteria</li>
+              <li>Existing tools / systems</li>
+            </ul>
+          </article>
+          <article class="list-card">
+            <h3>What Axolity delivers</h3>
+            <ul>
+              <li>Execution plans</li>
+              <li>Agentic workflows</li>
+              <li>Assets, copy, code, or documentation as applicable</li>
+              <li>Evaluated outputs and handoff-ready deliverables</li>
+            </ul>
+          </article>
+        </div>
+        <p class="deliver-note">Axolity is designed to be a force multiplier for teams that want outcomes, not prompt management.</p>
+      </section>
+
+      <section class="section panel anchor-target" id="company-profile">
+        <div class="label">COMPANY PROFILE</div>
+        <div class="profile-main">
+          <article class="profile-block">
+            <h3>Who we are</h3>
+            <p>
+              Axolity is an AI systems company focused on agentic execution and recursive improvement workflows. We combine research-informed architecture with practical delivery discipline.
+            </p>
+          </article>
+          <article class="profile-block">
+            <h3>What we are building</h3>
+            <p>
+              We are building an operating layer that makes advanced AI usable in everyday business environments without requiring customers to manage low-level orchestration.
+            </p>
+          </article>
+        </div>
+        <div class="descriptor-grid" aria-label="Positioning descriptors">
+          <div class="descriptor"><div class="k">Focused on</div><div class="v">Agentic AI workflows</div></div>
+          <div class="descriptor"><div class="k">Approach</div><div class="v">Research-informed + production-oriented</div></div>
+          <div class="descriptor"><div class="k">Interface</div><div class="v">Outcome-first</div></div>
+          <div class="descriptor"><div class="k">Model</div><div class="v">Human-guided automation</div></div>
+        </div>
+      </section>
+
+      <section class="section panel final">
+        <h2>We’re building the future operating layer for AI work</h2>
+        <p class="copy">
+          Axolity combines research-informed system design with practical execution to deliver real outcomes through agentic AI.
+        </p>
+        <a class="btn" href="#">Talk to Axolity →</a>
+        <a class="link" href="research.html">View Research</a>
+        <a class="tertiary" href="building.html">See Solutions</a>
+      </section>
+    </div>
+  </body>
+</html>
