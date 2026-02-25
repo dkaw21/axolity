@@ -331,8 +331,8 @@
         min-height: 22px;
         font-size: 15px;
         text-align: center;
-        color: rgba(181, 236, 202, 0.88);
-        text-shadow: 0 0 10px rgba(98, 255, 154, 0.2);
+        color: rgba(183, 228, 255, 0.9);
+        text-shadow: 0 0 10px rgba(108, 198, 255, 0.22);
         opacity: 0;
         transform: translateY(6px);
         transition: opacity 0.26s ease, transform 0.26s ease;
@@ -656,14 +656,17 @@
             leadStatus.classList.add("visible");
           });
 
+          const exitDelay = type === "success" ? 5900 : 3600;
+          const hideDelay = type === "success" ? 7000 : 4700;
+
           leadExitTimer = setTimeout(() => {
             leadStatus.classList.add("exit");
-          }, 3600);
+          }, exitDelay);
 
           leadHideTimer = setTimeout(() => {
             leadStatus.classList.remove("visible", "exit", "error");
             leadStatus.textContent = "";
-          }, 4700);
+          }, hideDelay);
         }
 
         function closeDropdown(dropdown) {
