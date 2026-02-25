@@ -416,7 +416,7 @@
         const email = document.getElementById("notifyEmail");
         const notifyBtn = document.getElementById("notifyBtn");
         const status = document.getElementById("formStatus");
-        const getformEndpoint = "https://dkamenwork.getform.com/z2m0g";
+        const formspreeEndpoint = "https://formspree.io/f/mpqjkody";
         let isSubmitting = false;
         let submitSuccess = false;
         let submitError = "";
@@ -529,7 +529,7 @@
           status.className = "status";
 
           try {
-            const response = await fetch(getformEndpoint, {
+            const response = await fetch(formspreeEndpoint, {
               method: "POST",
               headers: {
                 Accept: "application/json",
@@ -538,15 +538,17 @@
             });
 
             if (!response.ok) {
-              console.error("Getform submit failed with status:", response.status);
+              console.error("Formspree submit failed with status:", response.status);
+              let responseText = "";
               try {
-                const responseText = await response.text();
-                console.error("Getform error response:", responseText);
+                responseText = await response.text();
+                console.error("Formspree error response:", responseText);
               } catch (readError) {
-                console.error("Unable to read Getform error response", readError);
+                console.error("Unable to read Formspree error response", readError);
               }
-              const err = new Error("Getform submission failed");
+              const err = new Error("Formspree submission failed");
               err.status = response.status;
+              err.responseText = responseText;
               throw err;
             }
 
@@ -565,6 +567,17 @@
             submitSuccess = false;
             if (error && Number(error.status) === 429) {
               submitError = "Please wait a minute before trying again.";
+            } else if (error && Number(error.status) === 422 && error.responseText) {
+              try {
+                const parsed = JSON.parse(error.responseText);
+                if (parsed && Array.isArray(parsed.errors) && parsed.errors.length) {
+                  submitError = parsed.errors[0].message || "Please enter a valid work email.";
+                } else {
+                  submitError = "Something went wrong. Please try again.";
+                }
+              } catch (_parseError) {
+                submitError = "Something went wrong. Please try again.";
+              }
             } else {
               submitError = "Something went wrong. Please try again.";
             }
