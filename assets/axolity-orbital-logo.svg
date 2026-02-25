@@ -1,0 +1,54 @@
+<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Axolity logo">
+  <defs>
+    <radialGradient id="core" cx="55%" cy="38%" r="62%">
+      <stop offset="0%" stop-color="#8fffb9" stop-opacity="0.5"/>
+      <stop offset="33%" stop-color="#2ac777" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#03160f" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#010906"/>
+    </radialGradient>
+    <linearGradient id="ringA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a9ffcb"/>
+      <stop offset="50%" stop-color="#53ea90"/>
+      <stop offset="100%" stop-color="#1f8c54"/>
+    </linearGradient>
+    <linearGradient id="ringB" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#97ffc0"/>
+      <stop offset="55%" stop-color="#48de84"/>
+      <stop offset="100%" stop-color="#1a7446"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="2.8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <circle cx="160" cy="160" r="78" fill="url(#core)"/>
+  <circle cx="160" cy="160" r="80" fill="none" stroke="#2bc06a" stroke-opacity="0.35" stroke-width="1.4"/>
+
+  <ellipse cx="160" cy="160" rx="134" ry="94" fill="none" stroke="url(#ringA)" stroke-width="5" opacity="0.95" transform="rotate(15 160 160)" filter="url(#glow)"/>
+  <ellipse cx="160" cy="160" rx="145" ry="102" fill="none" stroke="url(#ringB)" stroke-width="3.4" stroke-dasharray="2 8" opacity="0.92" transform="rotate(-24 160 160)" filter="url(#glow)"/>
+  <ellipse cx="160" cy="160" rx="118" ry="82" fill="none" stroke="#65f79a" stroke-width="2.6" opacity="0.72" transform="rotate(7 160 160)"/>
+
+  <g fill="#b7ffd2" opacity="0.96" filter="url(#glow)">
+    <circle cx="39" cy="182" r="6"/>
+    <circle cx="71" cy="74" r="4.7"/>
+    <circle cx="271" cy="206" r="5.1"/>
+    <circle cx="252" cy="90" r="4.8"/>
+    <circle cx="214" cy="52" r="3.2"/>
+  </g>
+
+  <g fill="#7effb0" opacity="0.53">
+    <circle cx="100" cy="110" r="1.5"/>
+    <circle cx="109" cy="116" r="1.2"/>
+    <circle cx="117" cy="121" r="1.1"/>
+    <circle cx="203" cy="89" r="1.3"/>
+    <circle cx="212" cy="95" r="1.1"/>
+    <circle cx="223" cy="101" r="1.15"/>
+    <circle cx="236" cy="184" r="1.2"/>
+    <circle cx="228" cy="190" r="1.2"/>
+    <circle cx="219" cy="196" r="1.05"/>
+  </g>
+</svg>
