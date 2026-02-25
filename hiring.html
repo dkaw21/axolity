@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axolity — Jobs</title>
+    <meta
+      name="description"
+      content="Build recursive AI agents at Axolity — research-informed, production-oriented, human-guided."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --green: #1ed760;
+        --white: #ffffff;
+        --muted: rgba(235, 245, 238, 0.82);
+        --line: rgba(133, 255, 182, 0.32);
+        --panel: rgba(5, 19, 11, 0.72);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        font-family: "Inter", sans-serif;
+        background: #000;
+        color: var(--white);
+      }
+
+      .page {
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      #top-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        height: 92px;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(0, 0, 0, 0.84);
+        backdrop-filter: blur(6px);
+        border-bottom: 1px solid rgba(120, 255, 167, 0.34);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .brand img {
+        width: 34px;
+        height: 34px;
+        margin-right: 14px;
+      }
+
+      .brand span {
+        color: var(--green);
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.045em;
+      }
+
+      .nav-center {
+        display: flex;
+        gap: 64px;
+        align-items: center;
+      }
+
+      .navlink {
+        color: #fff;
+        opacity: 0.95;
+        text-decoration: none;
+        font-size: 20px;
+      }
+
+      .navlink.jobs-active {
+        opacity: 1;
+        text-shadow: 0 0 10px rgba(30, 215, 96, 0.42);
+        border-bottom: 1px solid rgba(122, 255, 177, 0.6);
+        padding-bottom: 4px;
+      }
+
+      .signin {
+        color: #fff;
+        text-decoration: none;
+        border: 1.5px solid rgba(255, 255, 255, 0.58);
+        border-radius: 999px;
+        padding: 10px 30px;
+        font-size: 20px;
+      }
+
+      .hero {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 120px 24px 64px;
+        text-align: center;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 50% 40%, rgba(17, 65, 37, 0.34), rgba(0, 0, 0, 0.76) 58%, rgba(0, 0, 0, 0.96) 100%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.94));
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(2px 2px at 18% 32%, rgba(132, 255, 182, 0.22), transparent 70%),
+          radial-gradient(1.6px 1.6px at 66% 24%, rgba(132, 255, 182, 0.16), transparent 70%),
+          radial-gradient(2px 2px at 78% 64%, rgba(132, 255, 182, 0.16), transparent 70%),
+          radial-gradient(1.6px 1.6px at 28% 74%, rgba(132, 255, 182, 0.14), transparent 70%);
+        animation: ambientFloat 16s ease-in-out infinite alternate;
+        opacity: 0.9;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 1040px;
+      }
+
+      h1 {
+        font-size: clamp(48px, 7vw, 92px);
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        text-shadow: 0 2px 18px rgba(81, 255, 146, 0.2);
+      }
+
+      .sub {
+        margin-top: 28px;
+        font-size: clamp(22px, 2vw, 34px);
+        line-height: 1.25;
+        color: var(--muted);
+      }
+
+      .supporting {
+        margin-top: 18px;
+        font-size: 14px;
+        letter-spacing: 0.045em;
+        color: rgba(180, 231, 200, 0.68);
+      }
+
+      .cta {
+        margin-top: 42px;
+        min-width: 260px;
+        height: 64px;
+        border: 1px solid rgba(185, 255, 208, 0.84);
+        border-radius: 999px;
+        background: linear-gradient(180deg, #adffc1, #70f393);
+        color: #072311;
+        font-size: 22px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 0 24px rgba(109, 255, 158, 0.38);
+        transition: transform 0.18s ease, box-shadow 0.2s ease;
+      }
+
+      .cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 30px rgba(109, 255, 158, 0.5);
+      }
+
+      .cta:active {
+        transform: scale(0.98);
+      }
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(3px);
+        z-index: 210;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal {
+        width: min(560px, 100%);
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 28px;
+        box-shadow: inset 0 1px 0 rgba(186, 255, 214, 0.16), 0 16px 34px rgba(0, 0, 0, 0.52), 0 0 28px rgba(104, 255, 156, 0.2);
+        transform: translateY(8px) scale(0.98);
+        transition: transform 0.22s ease;
+      }
+
+      .modal-overlay.open .modal {
+        transform: translateY(0) scale(1);
+      }
+
+      .modal h2 {
+        font-size: clamp(26px, 3vw, 34px);
+        line-height: 1.15;
+        margin-bottom: 12px;
+      }
+
+      .modal p {
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .modal form {
+        margin-top: 20px;
+      }
+
+      .modal input {
+        width: 100%;
+        height: 52px;
+        padding: 0 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(148, 255, 192, 0.46);
+        background: rgba(0, 0, 0, 0.42);
+        color: #f3fff8;
+        font-size: 16px;
+        outline: none;
+      }
+
+      .modal input:focus {
+        border-color: rgba(174, 255, 207, 0.86);
+        box-shadow: 0 0 0 3px rgba(96, 255, 151, 0.18);
+      }
+
+      .modal .actions {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .notify {
+        height: 48px;
+        border: 1px solid rgba(185, 255, 208, 0.84);
+        border-radius: 999px;
+        padding: 0 22px;
+        background: linear-gradient(180deg, #adffc1, #70f393);
+        color: #072311;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .notify:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .close {
+        border: 0;
+        background: transparent;
+        color: #b8ffd1;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      .status {
+        margin-top: 10px;
+        min-height: 20px;
+        font-size: 14px;
+      }
+
+      .status.error {
+        color: #ffb5bf;
+      }
+
+      .status.success {
+        color: #aefecb;
+      }
+
+      @keyframes ambientFloat {
+        0% { transform: translateY(0px); }
+        100% { transform: translateY(-6px); }
+      }
+
+      @media (max-width: 900px) {
+        #top-nav {
+          height: 76px;
+          padding: 0 16px;
+        }
+
+        .nav-center,
+        .signin {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 98px;
+        }
+
+        .cta {
+          width: min(320px, 100%);
+          min-width: 0;
+          font-size: 20px;
+        }
+
+        .sub {
+          font-size: clamp(20px, 5.6vw, 26px);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <nav id="top-nav" aria-label="Primary">
+        <a class="brand" href="index.html" aria-label="Axolity home">
+          <img src="neural_icon.png" alt="Axolity icon" />
+          <span>AXOLITY</span>
+        </a>
+        <div class="nav-center">
+          <a class="navlink" href="building.html">Solutions ▾</a>
+          <a class="navlink" href="research.html">Research</a>
+          <a class="navlink" href="company.html">Company</a>
+          <a class="navlink jobs-active" href="hiring.html">Jobs</a>
+        </div>
+        <a class="signin" href="#signin">Sign in</a>
+      </nav>
+
+      <section class="hero" aria-label="Jobs hero">
+        <div class="hero-inner">
+          <h1>Build Recursive AI Agents</h1>
+          <p class="sub">Change the most overlooked aspects of AI Cognition.</p>
+          <p class="supporting">Research-informed. Production-oriented. Human-guided.</p>
+          <button class="cta" id="openRoles" type="button">View open roles</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="modal-overlay" id="jobsModalOverlay" aria-hidden="true">
+      <section
+        class="modal"
+        id="jobsModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="jobsModalTitle"
+        aria-describedby="jobsModalBody"
+      >
+        <h2 id="jobsModalTitle">All roles at Axolity are currently filled</h2>
+        <p id="jobsModalBody">Please input your email and we will notify you when something is available.</p>
+        <form id="notifyForm" novalidate>
+          <label class="sr-only" for="notifyEmail">Work email</label>
+          <input id="notifyEmail" name="email" type="email" placeholder="Enter your work email" required />
+          <div class="actions">
+            <button class="notify" id="notifyBtn" type="submit" disabled>Notify me</button>
+            <button class="close" id="closeModal" type="button">Close</button>
+          </div>
+          <p class="status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+
+    <style>
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+    </style>
+
+    <script>
+      (() => {
+        const openBtn = document.getElementById("openRoles");
+        const closeBtn = document.getElementById("closeModal");
+        const overlay = document.getElementById("jobsModalOverlay");
+        const modal = document.getElementById("jobsModal");
+        const form = document.getElementById("notifyForm");
+        const email = document.getElementById("notifyEmail");
+        const notifyBtn = document.getElementById("notifyBtn");
+        const status = document.getElementById("formStatus");
+        const getformEndpoint = "https://dkamenwork.getform.com/w870x";
+
+        let lastFocused = null;
+        const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+
+        function isValidEmail(value) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+        }
+
+        function syncValidation() {
+          const valid = isValidEmail(email.value);
+          notifyBtn.disabled = !valid;
+          if (!email.value.trim()) {
+            status.textContent = "";
+            status.className = "status";
+          } else if (!valid) {
+            status.textContent = "Please enter a valid work email.";
+            status.className = "status error";
+          } else {
+            status.textContent = "";
+            status.className = "status";
+          }
+        }
+
+        function openModal() {
+          lastFocused = document.activeElement;
+          overlay.classList.add("open");
+          overlay.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+          email.focus();
+          syncValidation();
+        }
+
+        function closeModal() {
+          overlay.classList.remove("open");
+          overlay.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          if (lastFocused) lastFocused.focus();
+        }
+
+        function trapFocus(event) {
+          if (!overlay.classList.contains("open") || event.key !== "Tab") return;
+          const focusables = modal.querySelectorAll(focusableSelector);
+          if (!focusables.length) return;
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          const active = document.activeElement;
+          if (event.shiftKey && active === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && active === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+
+        openBtn.addEventListener("click", openModal);
+        closeBtn.addEventListener("click", closeModal);
+
+        overlay.addEventListener("click", (event) => {
+          if (event.target === overlay) closeModal();
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && overlay.classList.contains("open")) {
+            closeModal();
+          }
+          trapFocus(event);
+        });
+
+        email.addEventListener("input", syncValidation);
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          if (!isValidEmail(email.value)) {
+            syncValidation();
+            return;
+          }
+
+          const submittedEmail = email.value.trim();
+          const payload = new FormData();
+          payload.append("email", submittedEmail);
+          payload.append("source", "jobs_modal");
+          payload.append("page", "jobs");
+
+          notifyBtn.disabled = true;
+          status.textContent = "";
+          status.className = "status";
+
+          try {
+            const response = await fetch(getformEndpoint, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+              },
+              body: payload,
+            });
+
+            if (!response.ok) {
+              throw new Error("Getform submission failed");
+            }
+
+            status.textContent = "Thanks — we’ll notify you when a role opens.";
+            status.className = "status success";
+            form.reset();
+            setTimeout(() => {
+              closeModal();
+            }, 700);
+          } catch (error) {
+            status.textContent = "Something went wrong. Please try again.";
+            status.className = "status error";
+            syncValidation();
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
