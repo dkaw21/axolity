@@ -416,7 +416,7 @@
         const email = document.getElementById("notifyEmail");
         const notifyBtn = document.getElementById("notifyBtn");
         const status = document.getElementById("formStatus");
-        const getformEndpoint = "https://dkamenwork.getform.com/w870x";
+        const getformEndpoint = "https://dkamenwork.getform.com/z2m0g";
         let isSubmitting = false;
         let submitSuccess = false;
         let submitError = "";
@@ -538,7 +538,16 @@
             });
 
             if (!response.ok) {
-              throw new Error("Getform submission failed");
+              console.error("Getform submit failed with status:", response.status);
+              try {
+                const responseText = await response.text();
+                console.error("Getform error response:", responseText);
+              } catch (readError) {
+                console.error("Unable to read Getform error response", readError);
+              }
+              const err = new Error("Getform submission failed");
+              err.status = response.status;
+              throw err;
             }
 
             submitSuccess = true;
@@ -554,7 +563,11 @@
           } catch (error) {
             isSubmitting = false;
             submitSuccess = false;
-            submitError = "Something went wrong. Please try again.";
+            if (error && Number(error.status) === 429) {
+              submitError = "Please wait a minute before trying again.";
+            } else {
+              submitError = "Something went wrong. Please try again.";
+            }
             syncValidation();
           }
         });
