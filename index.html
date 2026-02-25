@@ -326,6 +326,33 @@
         cursor: pointer;
       }
 
+      .lead-status {
+        margin-top: 14px;
+        min-height: 22px;
+        font-size: 15px;
+        text-align: center;
+        color: rgba(181, 236, 202, 0.88);
+        text-shadow: 0 0 10px rgba(98, 255, 154, 0.2);
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 0.26s ease, transform 0.26s ease;
+      }
+
+      .lead-status.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .lead-status.exit {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      .lead-status.error {
+        color: rgba(255, 197, 206, 0.9);
+        text-shadow: none;
+      }
+
       .down {
         position: absolute;
         left: 50%;
@@ -478,6 +505,10 @@
         .lead-form button {
           min-width: 220px;
         }
+
+        .lead-status {
+          font-size: 14px;
+        }
       }
 
       @media (max-width: 640px) {
@@ -503,6 +534,12 @@
           width: 100%;
           height: 52px;
           border-radius: 999px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .lead-status {
+          transition: none;
         }
       }
     </style>
@@ -581,6 +618,7 @@
             <input type="email" name="email" placeholder="Enter your work email" aria-label="Enter your work email" />
             <button type="submit">Get a demo →</button>
           </form>
+          <p class="lead-status" id="leadStatus" role="status" aria-live="polite"></p>
         </div>
 
         <button class="down" type="button" aria-label="Scroll down">↓</button>
@@ -592,9 +630,41 @@
         const body = document.body;
         const menuToggle = document.querySelector(".menu-toggle");
         const mobilePanel = document.getElementById("mobile-panel");
+        const leadForm = document.querySelector(".lead-form");
+        const leadInput = leadForm ? leadForm.querySelector('input[type="email"]') : null;
+        const leadButton = leadForm ? leadForm.querySelector('button[type="submit"]') : null;
+        const leadStatus = document.getElementById("leadStatus");
+        const formspreeEndpoint = "https://formspree.io/f/xvzbdvbw";
 
         const allDropdowns = document.querySelectorAll(".has-dropdown");
         const mobileDropdowns = mobilePanel ? mobilePanel.querySelectorAll(".has-dropdown") : [];
+
+        let leadSubmitting = false;
+        let leadHideTimer = null;
+        let leadExitTimer = null;
+
+        function showLeadStatus(message, type) {
+          if (!leadStatus) return;
+          if (leadHideTimer) clearTimeout(leadHideTimer);
+          if (leadExitTimer) clearTimeout(leadExitTimer);
+
+          leadStatus.textContent = message;
+          leadStatus.classList.remove("error", "exit");
+          if (type === "error") leadStatus.classList.add("error");
+
+          requestAnimationFrame(() => {
+            leadStatus.classList.add("visible");
+          });
+
+          leadExitTimer = setTimeout(() => {
+            leadStatus.classList.add("exit");
+          }, 3600);
+
+          leadHideTimer = setTimeout(() => {
+            leadStatus.classList.remove("visible", "exit", "error");
+            leadStatus.textContent = "";
+          }, 4700);
+        }
 
         function closeDropdown(dropdown) {
           dropdown.classList.remove("open");
@@ -668,6 +738,54 @@
             allDropdowns.forEach(closeDropdown);
           });
         });
+
+        if (leadForm && leadInput && leadButton) {
+          leadForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (leadSubmitting) return;
+
+            const email = leadInput.value.trim();
+            if (!email) {
+              showLeadStatus("Something went wrong. Please try again.", "error");
+              return;
+            }
+
+            const payload = new FormData();
+            payload.append("email", email);
+
+            leadSubmitting = true;
+            leadButton.disabled = true;
+
+            try {
+              const response = await fetch(formspreeEndpoint, {
+                method: "POST",
+                headers: {
+                  Accept: "application/json",
+                },
+                body: payload,
+              });
+
+              if (!response.ok) {
+                console.error("Formspree lead submit failed status:", response.status);
+                try {
+                  const errorBody = await response.text();
+                  console.error("Formspree lead error response:", errorBody);
+                } catch (readError) {
+                  console.error("Unable to read Formspree lead error response", readError);
+                }
+                throw new Error("Lead form submit failed");
+              }
+
+              leadInput.value = "";
+              showLeadStatus("An agent will reach out to you shortly", "success");
+            } catch (error) {
+              showLeadStatus("Something went wrong. Please try again.", "error");
+            } finally {
+              leadSubmitting = false;
+              leadButton.disabled = false;
+            }
+          });
+        }
       })();
     </script>
   </body>
