@@ -416,6 +416,7 @@
         const email = document.getElementById("notifyEmail");
         const notifyBtn = document.getElementById("notifyBtn");
         const status = document.getElementById("formStatus");
+        const getformEndpoint = "https://dkamenwork.getform.com/w870x";
 
         let lastFocused = null;
         const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
@@ -487,19 +488,47 @@
 
         email.addEventListener("input", syncValidation);
 
-        form.addEventListener("submit", (event) => {
+        form.addEventListener("submit", async (event) => {
           event.preventDefault();
           if (!isValidEmail(email.value)) {
             syncValidation();
             return;
           }
-          status.textContent = "Thanks — we’ll notify you when a role opens.";
-          status.className = "status success";
+
+          const submittedEmail = email.value.trim();
+          const payload = new FormData();
+          payload.append("email", submittedEmail);
+          payload.append("source", "jobs_modal");
+          payload.append("page", "jobs");
+
           notifyBtn.disabled = true;
-          form.reset();
-          setTimeout(() => {
-            closeModal();
-          }, 700);
+          status.textContent = "";
+          status.className = "status";
+
+          try {
+            const response = await fetch(getformEndpoint, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+              },
+              body: payload,
+            });
+
+            if (!response.ok) {
+              throw new Error("Getform submission failed");
+            }
+
+            status.textContent = "Thanks — we’ll notify you when a role opens.";
+            status.className = "status success";
+            form.reset();
+            setTimeout(() => {
+              closeModal();
+            }, 700);
+          } catch (error) {
+            status.textContent = "Something went wrong. Please try again.";
+            status.className = "status error";
+            syncValidation();
+          }
         });
       })();
     </script>
