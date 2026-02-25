@@ -417,6 +417,9 @@
         const notifyBtn = document.getElementById("notifyBtn");
         const status = document.getElementById("formStatus");
         const getformEndpoint = "https://dkamenwork.getform.com/w870x";
+        let isSubmitting = false;
+        let submitSuccess = false;
+        let submitError = "";
 
         let lastFocused = null;
         const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
@@ -426,9 +429,21 @@
         }
 
         function syncValidation() {
+          if (isSubmitting) {
+            notifyBtn.disabled = true;
+            return;
+          }
+
           const valid = isValidEmail(email.value);
           notifyBtn.disabled = !valid;
-          if (!email.value.trim()) {
+
+          if (submitSuccess) {
+            status.textContent = "Thanks — we’ll notify you when a role opens.";
+            status.className = "status success";
+          } else if (submitError) {
+            status.textContent = submitError;
+            status.className = "status error";
+          } else if (!email.value.trim()) {
             status.textContent = "";
             status.className = "status";
           } else if (!valid) {
@@ -442,6 +457,9 @@
 
         function openModal() {
           lastFocused = document.activeElement;
+          submitSuccess = false;
+          submitError = "";
+          isSubmitting = false;
           overlay.classList.add("open");
           overlay.setAttribute("aria-hidden", "false");
           document.body.style.overflow = "hidden";
@@ -490,6 +508,8 @@
 
         form.addEventListener("submit", async (event) => {
           event.preventDefault();
+          if (isSubmitting) return;
+
           if (!isValidEmail(email.value)) {
             syncValidation();
             return;
@@ -501,6 +521,9 @@
           payload.append("source", "jobs_modal");
           payload.append("page", "jobs");
 
+          isSubmitting = true;
+          submitSuccess = false;
+          submitError = "";
           notifyBtn.disabled = true;
           status.textContent = "";
           status.className = "status";
@@ -518,15 +541,20 @@
               throw new Error("Getform submission failed");
             }
 
-            status.textContent = "Thanks — we’ll notify you when a role opens.";
-            status.className = "status success";
-            form.reset();
+            submitSuccess = true;
+            submitError = "";
+            syncValidation();
             setTimeout(() => {
+              form.reset();
+              submitSuccess = false;
+              submitError = "";
+              isSubmitting = false;
               closeModal();
-            }, 700);
+            }, 1400);
           } catch (error) {
-            status.textContent = "Something went wrong. Please try again.";
-            status.className = "status error";
+            isSubmitting = false;
+            submitSuccess = false;
+            submitError = "Something went wrong. Please try again.";
             syncValidation();
           }
         });
