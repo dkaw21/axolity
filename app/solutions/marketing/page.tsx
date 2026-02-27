@@ -75,9 +75,16 @@ export default function MarketingSolutionPage() {
             <span className="text-3xl font-semibold tracking-[0.045em] text-[#1ed760]">AXOLITY</span>
           </Link>
           <div className="hidden items-center gap-14 md:flex">
-            <Link href="/building" className="border-b border-emerald-300/60 pb-1 text-lg text-white drop-shadow-[0_0_10px_rgba(30,215,96,0.42)]">
-              Solutions ▾
-            </Link>
+            <div className="group relative">
+              <button className="border-b border-emerald-300/60 pb-1 text-lg text-white drop-shadow-[0_0_10px_rgba(30,215,96,0.42)]">
+                Solutions ▾
+              </button>
+              <div className="pointer-events-none absolute left-1/2 top-full z-10 mt-3 grid min-w-[200px] -translate-x-1/2 gap-1 rounded-2xl border border-white/20 bg-black/85 p-2 opacity-0 shadow-[0_16px_36px_rgba(0,0,0,0.45)] transition group-hover:pointer-events-auto group-hover:opacity-100">
+                <Link href="/solutions/building" className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-[#1ed760]">Building</Link>
+                <Link href="/solutions/marketing" className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-[#1ed760]">Marketing</Link>
+                <Link href="/solutions/scaling" className="rounded-xl px-3 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-[#1ed760]">Scaling</Link>
+              </div>
+            </div>
             <Link href="/research" className="text-lg text-white/95">Research</Link>
             <Link href="/company" className="text-lg text-white/95">Company</Link>
             <Link href="/hiring" className="text-lg text-white/95">Jobs</Link>
