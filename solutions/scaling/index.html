@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axolity — Scaling</title>
+    <meta name="description" content="Scale output without adding operational drag. Axolity runs structured workflows end to end." />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: #020402; color: #fff; }
+      :root {
+        --green: #1ed760;
+        --panel: rgba(7, 17, 10, 0.55);
+        --line: rgba(144, 255, 184, 0.28);
+      }
+      .bg {
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 16% 8%, rgba(35, 172, 83, 0.22), transparent 35%),
+          radial-gradient(circle at 82% 20%, rgba(55, 150, 98, 0.18), transparent 38%),
+          radial-gradient(circle at 52% 100%, rgba(24, 72, 45, 0.3), transparent 45%),
+          #020402;
+      }
+      #top-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        height: 92px; display: flex; align-items: center; justify-content: center;
+        border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); background: rgba(0,0,0,.72);
+      }
+      .nav-inner { width: min(1240px, calc(100vw - 32px)); display: flex; justify-content: space-between; align-items: center; }
+      .brand { color: var(--green); text-decoration: none; font-size: 30px; font-weight: 600; letter-spacing: .04em; }
+      .nav-center { display: flex; gap: 68px; align-items: center; }
+      .nav-center a, .nav-btn { color: #fff; text-decoration: none; font-size: 20px; }
+      .nav-btn { background: transparent; border: 0; cursor: pointer; }
+      .has-dropdown { position: relative; padding-bottom: 14px; margin-bottom: -14px; }
+      .dropdown { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); min-width: 210px; padding: 8px; display: grid; gap: 4px;
+        border-radius: 16px; border: 1px solid rgba(255,255,255,.2); background: rgba(0,0,0,.85);
+        opacity: 0; visibility: hidden; pointer-events: none; }
+      .dropdown a { padding: 10px 12px; border-radius: 10px; font-size: 15px; }
+      .dropdown a:hover { background: rgba(255,255,255,.08); color: var(--green); }
+      .has-dropdown:hover .dropdown, .has-dropdown:focus-within .dropdown { opacity: 1; visibility: visible; pointer-events: auto; }
+      .signin { border: 1px solid rgba(255,255,255,.55); padding: 10px 30px; border-radius: 999px; }
+
+      main { width: min(1200px, calc(100vw - 32px)); margin: 0 auto; padding: 126px 0 72px; display: grid; gap: 24px; }
+      .panel { border: 1px solid var(--line); border-radius: 24px; background: var(--panel); backdrop-filter: blur(10px); padding: 34px; }
+      .hero { display: grid; gap: 24px; grid-template-columns: 1.15fr 1fr; position: relative; overflow: hidden; }
+      h1 { font-size: clamp(42px, 7vw, 96px); line-height: .95; }
+      .green { color: var(--green); }
+      .lead { margin-top: 16px; color: rgba(255,255,255,.82); font-size: clamp(18px, 2.2vw, 30px); max-width: 640px; }
+      .sub { margin-top: 14px; color: rgba(255,255,255,.72); font-size: 18px; max-width: 700px; }
+      .cta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+      .btn-primary { background: linear-gradient(to bottom, #cefcd5, #58e285); color: #05320f; border: 1px solid #b3f4c3; font-weight: 700; border-radius: 999px; padding: 13px 24px; text-decoration: none; }
+      .btn-secondary { color: #d5ffe2; text-decoration: none; }
+
+      .console { border: 1px solid rgba(137, 255, 184, .35); border-radius: 22px; padding: 18px; background: rgba(10, 29, 16, .52); box-shadow: 0 0 32px rgba(44, 212, 106, .18); }
+      .console h3 { font-size: 12px; letter-spacing: .11em; text-transform: uppercase; color: rgba(197, 255, 217, .82); margin-bottom: 10px; }
+      .console-grid { display: grid; gap: 10px; }
+      .mini { border: 1px solid rgba(177, 255, 206, .22); border-radius: 12px; padding: 10px 12px; background: rgba(0,0,0,.36); }
+      .mini .k { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: rgba(194, 255, 214, .7); }
+      .mini .v { margin-top: 4px; color: rgba(255,255,255,.9); font-size: 14px; }
+
+      h2 { font-size: clamp(32px, 4.5vw, 60px); }
+      .two-col { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; margin-top: 18px; }
+      .box { border: 1px solid rgba(133, 255, 186, .25); border-radius: 16px; padding: 18px; background: rgba(0, 0, 0, .32); }
+      .box h3 { color: #bfffd4; font-size: 23px; }
+      .box ul { margin-top: 10px; display: grid; gap: 8px; color: rgba(255,255,255,.84); }
+
+      .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+      .cards-6 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+      .card { border: 1px solid rgba(133, 255, 186, .24); border-radius: 16px; background: rgba(14, 32, 20, .44); padding: 18px; }
+      .card p { color: rgba(255,255,255,.8); margin-top: 8px; }
+
+      table { width: 100%; border-collapse: collapse; margin-top: 18px; overflow: hidden; border-radius: 14px; border: 1px solid rgba(255,255,255,.18); }
+      th, td { border-top: 1px solid rgba(255,255,255,.1); padding: 12px 14px; text-align: left; }
+      th { color: rgba(255,255,255,.84); background: rgba(0,0,0,.25); }
+      td { color: rgba(255,255,255,.78); }
+      td:last-child { color: #d0ffe0; }
+
+      .center { text-align: center; }
+      .small-link { margin-top: 10px; display: inline-block; color: rgba(229,255,236,.8); }
+
+      @media (max-width: 980px) {
+        .nav-center, .signin { display: none; }
+        .hero, .two-col, .cards-3, .cards-6 { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg">
+      <nav id="top-nav" aria-label="Primary">
+        <div class="nav-inner">
+          <a class="brand" href="../../index.html">AXOLITY</a>
+          <div class="nav-center">
+            <div class="has-dropdown">
+              <button class="nav-btn" type="button" aria-label="Solutions menu">Solutions ▾</button>
+              <div class="dropdown" role="menu" aria-label="Solutions submenu">
+                <a href="../../building.html" role="menuitem">Building</a>
+                <a href="../../marketing.html" role="menuitem">Marketing</a>
+                <a href="../../solutions/scaling/" role="menuitem">Scaling</a>
+              </div>
+            </div>
+            <a href="../../research.html">Research</a>
+            <a href="../../company.html">Company</a>
+            <a href="../../hiring.html">Jobs</a>
+          </div>
+          <a class="signin" href="#">Sign in</a>
+        </div>
+      </nav>
+
+      <main id="top">
+        <section class="panel hero">
+          <div>
+            <h1>Scale output.<br /><span class="green">Not headcount.</span></h1>
+            <p class="lead">Axolity expands execution capacity across structured workflows without the overhead of hiring, handoffs, and management drag.</p>
+            <p class="sub">Define the workflow, constraints, and approvals — Axolity handles routing, execution, updates, and handoff-ready output.</p>
+            <div class="cta">
+              <a class="btn-primary" href="#get-started">Get Started</a>
+              <a class="btn-secondary" href="#how-it-works">See how it works</a>
+            </div>
+          </div>
+          <aside class="console" aria-label="Operations console">
+            <h3>Operations Console</h3>
+            <div class="console-grid">
+              <article class="mini"><p class="k">Workflow</p><p class="v">Inbound lead qualification + routing</p></article>
+              <article class="mini"><p class="k">Queue</p><p class="v">Queue active</p></article>
+              <article class="mini"><p class="k">Approval logic</p><p class="v">Approval gate enabled</p></article>
+              <article class="mini"><p class="k">Routing</p><p class="v">Tasks routed</p></article>
+              <article class="mini"><p class="k">Status</p><p class="v">Documentation generated</p></article>
+              <article class="mini"><p class="k">Handoff package</p><p class="v">Handoff ready</p></article>
+            </div>
+          </aside>
+        </section>
+
+        <section class="panel">
+          <h2>Set the system. Axolity runs the work.</h2>
+          <div class="two-col">
+            <article class="box">
+              <h3>What you define</h3>
+              <ul>
+                <li>• Workflow</li><li>• Rules + constraints</li><li>• Approvals</li><li>• Targets</li><li>• Escalation paths</li>
+              </ul>
+            </article>
+            <article class="box">
+              <h3>What Axolity runs</h3>
+              <ul>
+                <li>• Task routing</li><li>• Process execution</li><li>• Status updates</li><li>• QA / validation</li><li>• Documentation</li><li>• Handoff output</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Where teams add execution capacity</h2>
+          <div class="cards-6">
+            <article class="card"><h3>Sales operations</h3><p>Run lead flow rules, qualification gates, and handoff packaging at scale.</p></article>
+            <article class="card"><h3>Customer onboarding</h3><p>Coordinate onboarding steps, approvals, and completion status automatically.</p></article>
+            <article class="card"><h3>Reporting workflows</h3><p>Assemble recurring reports with validation and clean stakeholder delivery.</p></article>
+            <article class="card"><h3>Internal requests</h3><p>Route requests to the right path with clear SLAs and escalation triggers.</p></article>
+            <article class="card"><h3>Research packaging</h3><p>Collect findings, structure outputs, and ship handoff-ready briefing docs.</p></article>
+            <article class="card"><h3>Follow-up systems</h3><p>Execute consistent follow-up loops with visibility across teams.</p></article>
+          </div>
+        </section>
+
+        <section class="panel" id="how-it-works">
+          <h2>Define. Route. Deliver.</h2>
+          <div class="cards-3">
+            <article class="card"><h3>Define</h3><p>Workflow + boundaries.<br />Rules + approvals.</p></article>
+            <article class="card"><h3>Route</h3><p>Tasks distributed automatically.<br />Status tracked continuously.</p></article>
+            <article class="card"><h3>Deliver</h3><p>Outputs packaged clearly.<br />Teams receive handoff-ready work.</p></article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Why teams scale with Axolity instead of adding operational overhead</h2>
+          <table aria-label="Traditional team expansion vs Axolity">
+            <thead>
+              <tr><th>Category</th><th>Traditional team expansion</th><th>Axolity</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Speed to capacity</td><td>Hiring cycles and onboarding delay execution.</td><td>Workflow capacity activates immediately.</td></tr>
+              <tr><td>Management overhead</td><td>Extra coordination layers and meetings.</td><td>Centralized orchestration with lower admin drag.</td></tr>
+              <tr><td>Process consistency</td><td>Outputs vary by team and operator.</td><td>Rules-driven repeatability with clear standards.</td></tr>
+              <tr><td>Visibility</td><td>Status is fragmented across tools and threads.</td><td>End-to-end status and handoff visibility.</td></tr>
+              <tr><td>Iteration speed</td><td>Changes roll out slowly through people-heavy chains.</td><td>Rules and routing can be updated quickly.</td></tr>
+              <tr><td>Headcount required</td><td>Capacity growth usually means additional hiring.</td><td>Higher throughput without proportional headcount.</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="panel center" id="get-started">
+          <h2>Stop adding process drag. Start increasing output.</h2>
+          <p class="lead" style="max-width:780px;margin:12px auto 0;font-size:22px;">Tell Axolity what the system needs to do — we run the workflow.</p>
+          <div class="cta" style="justify-content:center;">
+            <a class="btn-primary" href="mailto:hello@axolity.com?subject=Get%20Started%20with%20Scaling">Get Started</a>
+          </div>
+          <a class="small-link" href="#top">Back to top</a>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
