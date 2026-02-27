@@ -1,0 +1,7 @@
+# Binary image assets kept local/untracked
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.ico
