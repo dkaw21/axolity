@@ -63,14 +63,16 @@
         border-bottom: 1px solid rgba(122, 255, 177, 0.6);
         padding-bottom: 4px;
       }
-
       .signin {
         color: #fff;
         text-decoration: none;
-        border: 1.5px solid rgba(255, 255, 255, 0.58);
+        border: 1.5px solid rgba(255, 255, 255, 0.55);
         border-radius: 999px;
         padding: 10px 30px;
         font-size: 20px;
+        line-height: 1;
+        font-weight: 500;
+        text-align: center;
       }
 
       .hero {
@@ -503,5 +505,16 @@
         </div>
       </section>
     </div>
+      <script>
+      (() => {
+        const signInErrorMessage = "Error: This IP address is not associated with a verified Axolity account. Please try again later.";
+        document.querySelectorAll(".signin, .mobile-signin").forEach((signInLink) => {
+          signInLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            window.alert(signInErrorMessage);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
