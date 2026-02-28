@@ -5,12 +5,21 @@ import { SolutionsHeader } from "@/app/components/solutions-header";
 import { FormEvent, useEffect, useRef, useState } from "react";
 
 const deliverables = [
-  { title: "Product strategy", text: "Clear direction, scope, and phased execution priorities." },
-  { title: "Wireframes / UX flows", text: "Core journeys mapped so product decisions are executable." },
-  { title: "Landing page copy", text: "Positioning and page structure ready for launch." },
-  { title: "Functional specs", text: "Feature behavior and system requirements documented." },
-  { title: "Workflow logic", text: "Operational flow mapped across build and delivery steps." },
-  { title: "Documentation / handoff", text: "Handoff-ready outputs with next steps your team can run." },
+  { title: "Product strategy", text: "Clear scope, sequencing, and build priorities for execution." },
+  { title: "UX flows", text: "Core journeys mapped so decisions convert directly into work." },
+  { title: "Landing page copy", text: "Positioning and launch-ready messaging structured for handoff." },
+  { title: "Functional specs", text: "Feature behavior, constraints, and requirements documented." },
+  { title: "Workflow logic", text: "System flow and dependencies defined across build stages." },
+  { title: "Documentation", text: "Handoff-ready outputs with clear next steps for your team." },
+];
+
+const consoleRows = [
+  ["Objective", "Build a dating app for local dog owners"],
+  ["Plan generated", "Execution architecture and phases mapped"],
+  ["Workstreams", "UX flow mapped · Core feature scope drafted"],
+  ["Deliverables", "Landing page drafted · Functional spec generated"],
+  ["Validation", "Workflow logic defined · review pass complete"],
+  ["Handoff", "Build package ready for execution"],
 ];
 
 export default function BuildingSolutionPage() {
@@ -64,51 +73,44 @@ export default function BuildingSolutionPage() {
       <SolutionsHeader />
 
       <main id="top" className="mx-auto w-[min(1200px,calc(100vw-32px))] space-y-8 pb-20 pt-32">
-        <section className="relative overflow-hidden rounded-3xl border border-emerald-300/30 bg-black/40 p-8 md:p-12">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_28%,rgba(30,215,96,0.22),rgba(0,0,0,0.92)_62%)]" />
-          <div className="relative grid items-center gap-8 md:grid-cols-2">
+        <section className="relative overflow-hidden rounded-3xl border border-emerald-300/30 bg-black/45 p-8 md:p-12">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(30,215,96,0.2),transparent_34%),radial-gradient(circle_at_86%_18%,rgba(30,215,96,0.12),transparent_34%),radial-gradient(circle_at_52%_92%,rgba(20,90,45,0.25),transparent_40%)]" />
+          <div className="relative grid items-center gap-8 md:grid-cols-[1.1fr,0.9fr]">
             <div>
               <h1 className="text-4xl font-semibold leading-[1.02] md:text-7xl">
                 Come up with an idea.
                 <span className="mt-2 block text-[#1ed760]">Watch it turn into reality.</span>
               </h1>
-              <p className="mt-5 max-w-xl text-lg text-white/82 md:text-2xl">
-                Let Axolity handle everything in between. Build, plan, and ship outcomes without expanding headcount.
+              <p className="mt-5 max-w-2xl text-lg text-white/82 md:text-2xl">
+                Set the objective. Axolity handles planning, structure, and execution.
               </p>
               <p className="mt-4 max-w-2xl text-base text-white/72 md:text-lg">
-                Axolity turns a single objective into an execution plan and handoff-ready deliverables, produced by a staffed AI agent team working 24/7.
+                From concept to handoff-ready output, the system turns one idea into real deliverables.
               </p>
 
-              <div className="mt-8">
+              <div className="mt-8 flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => setOpen(true)}
                   className="rounded-full border border-emerald-200/80 bg-gradient-to-b from-emerald-200 to-emerald-400 px-8 py-4 text-xl font-bold text-emerald-950 shadow-[0_0_28px_rgba(109,255,158,0.45)]"
                 >
                   Get Started
                 </button>
-                <a href="#how-it-works" className="mt-3 block w-fit text-emerald-100 underline-offset-4 hover:underline">
+                <a href="#how-it-works" className="text-emerald-100 underline-offset-4 hover:underline">
                   See how it works
                 </a>
               </div>
             </div>
 
             <motion.aside
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45 }}
-              className="rounded-2xl border border-emerald-300/35 bg-emerald-950/20 p-4 shadow-[0_0_32px_rgba(109,255,158,0.18)]"
+              className="rounded-2xl border border-emerald-300/35 bg-emerald-950/20 p-4 shadow-[0_0_32px_rgba(109,255,158,0.18)] backdrop-blur"
             >
               <h2 className="mb-3 text-sm uppercase tracking-[0.12em] text-emerald-200/80">Build Console</h2>
               <div className="grid gap-3">
-                {[
-                  ["Objective", "Build a dating app for people that walk dogs in the same area"],
-                  ["System plan", "Plan generated"],
-                  ["Workstreams", "UX flow mapped · Core logic scoped"],
-                  ["Deliverables", "Landing page drafted · App structure defined"],
-                  ["Status", "Execution in progress across agent team"],
-                  ["Validation / Handoff", "Handoff package ready"],
-                ].map(([label, value]) => (
-                  <div key={label} className="rounded-xl border border-emerald-200/20 bg-black/40 p-3">
+                {consoleRows.map(([label, value]) => (
+                  <div key={label} className="rounded-xl border border-emerald-200/20 bg-black/45 p-3">
                     <p className="text-xs uppercase tracking-[0.1em] text-emerald-200/70">{label}</p>
                     <p className="mt-1 text-sm text-white/90">{value}</p>
                   </div>
@@ -124,9 +126,9 @@ export default function BuildingSolutionPage() {
             <article className="rounded-2xl border border-emerald-300/25 bg-black/40 p-6">
               <h3 className="text-2xl font-semibold text-emerald-200">What you do</h3>
               <ul className="mt-3 space-y-2 text-white/85">
-                <li>• Describe your objective</li>
-                <li>• Set priorities or constraints</li>
-                <li>• Provide preferences if needed</li>
+                <li>• Describe the objective</li>
+                <li>• Set constraints or priorities</li>
+                <li>• Add preferences if needed</li>
               </ul>
               <p className="mt-4 text-sm text-white/70">
                 <span className="font-semibold text-emerald-200">Example:</span> Build a dating app for people that walk their dogs in the same area.
@@ -139,9 +141,9 @@ export default function BuildingSolutionPage() {
                 <li>• Assets</li>
                 <li>• Copy</li>
                 <li>• Code</li>
-                <li>• Workflows</li>
+                <li>• Workflow logic</li>
                 <li>• Documentation</li>
-                <li>• Handoff-ready outputs</li>
+                <li>• Handoff-ready output</li>
               </ul>
             </article>
           </div>
@@ -173,58 +175,24 @@ export default function BuildingSolutionPage() {
               <h3 className="text-2xl font-semibold text-emerald-200">Build</h3>
               <ul className="mt-3 space-y-2 text-white/80">
                 <li>• Planning + asset generation</li>
-                <li>• Execution across key workstreams</li>
+                <li>• Execution across workstreams</li>
               </ul>
             </article>
             <article className="rounded-2xl border border-emerald-300/25 bg-emerald-950/20 p-5">
               <h3 className="text-2xl font-semibold text-emerald-200">Deliver</h3>
               <ul className="mt-3 space-y-2 text-white/80">
                 <li>• Handoff-ready outputs</li>
-                <li>• Clear next steps and documentation</li>
+                <li>• Clear documentation and next steps</li>
               </ul>
             </article>
           </div>
         </section>
 
-        <section className="rounded-3xl border border-emerald-300/30 bg-black/45 p-8">
-          <h2 className="text-3xl font-semibold md:text-5xl">Why teams replace agency overhead with Axolity</h2>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="space-y-3 rounded-2xl border border-white/20 bg-black/35 p-4">
-              <h3 className="text-2xl font-semibold text-white">Agency</h3>
-              {[
-                ["Speed", "Project queues and handoffs slow delivery."],
-                ["Cost / overhead", "Retainers plus layered account management."],
-                ["Iteration frequency", "Optimization often comes in scheduled batches."],
-                ["Deliverable transparency", "Outputs spread across threads and tools."],
-                ["Team burden", "Internal team still manages coordination overhead."],
-              ].map(([label, value]) => (
-                <div key={label} className="rounded-xl border border-white/15 bg-black/40 p-3">
-                  <p className="text-xs uppercase tracking-[0.08em] text-white/60">{label}</p>
-                  <p className="mt-1 text-white/80">{value}</p>
-                </div>
-              ))}
-            </div>
-            <div className="space-y-3 rounded-2xl border border-emerald-300/35 bg-emerald-950/20 p-4 shadow-[0_0_20px_rgba(109,255,158,0.15)]">
-              <h3 className="text-2xl font-semibold text-emerald-200">Axolity</h3>
-              {[
-                ["Speed", "One objective maps directly to an execution system."],
-                ["Cost / overhead", "Lean run model with lower management drag."],
-                ["Iteration frequency", "Continuous build and refinement cycles."],
-                ["Deliverable transparency", "Structured output trail and handoff package."],
-                ["Team burden", "Less operational load on your internal team."],
-              ].map(([label, value]) => (
-                <div key={label} className="rounded-xl border border-emerald-300/30 bg-black/35 p-3">
-                  <p className="text-xs uppercase tracking-[0.08em] text-emerald-200/70">{label}</p>
-                  <p className="mt-1 text-white/85">{value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="rounded-3xl border border-emerald-300/35 bg-emerald-950/20 p-10 text-center shadow-[0_0_28px_rgba(109,255,158,0.18)]">
           <h2 className="text-4xl font-semibold md:text-6xl">Stop managing prompts. Start shipping outcomes.</h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">Tell Axolity what you want built — we turn it into execution-ready output.</p>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
+            Tell Axolity what you want built — we turn it into execution-ready output.
+          </p>
           <button
             onClick={() => setOpen(true)}
             className="mt-7 rounded-full border border-emerald-200/80 bg-gradient-to-b from-emerald-200 to-emerald-400 px-8 py-4 text-xl font-bold text-emerald-950 shadow-[0_0_28px_rgba(109,255,158,0.45)]"
@@ -258,29 +226,16 @@ export default function BuildingSolutionPage() {
                 placeholder="Enter your work email"
                 className="h-12 w-full rounded-xl border border-emerald-300/35 bg-black/45 px-4 text-white outline-none focus:border-emerald-200/70"
               />
-              <div className="mt-3 flex items-center gap-3">
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="rounded-full border border-emerald-200/80 bg-gradient-to-b from-emerald-200 to-emerald-400 px-6 py-2 font-semibold text-emerald-950 disabled:opacity-60"
-                >
-                  Notify me
-                </button>
-                <button type="button" onClick={() => setOpen(false)} className="text-emerald-100 underline underline-offset-4">
-                  Close
-                </button>
-              </div>
-            </form>
-            {status === "success" && (
-              <motion.p
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-3 text-center text-sm text-[rgba(183,228,255,0.92)]"
+              <button
+                type="submit"
+                disabled={submitting}
+                className="mt-3 w-full rounded-xl border border-emerald-200/70 bg-gradient-to-b from-emerald-200 to-emerald-400 px-4 py-3 font-semibold text-emerald-950 disabled:cursor-not-allowed disabled:opacity-70"
               >
-                An agent will reach out to you shortly
-              </motion.p>
-            )}
-            {status === "error" && <p className="mt-3 text-center text-sm text-rose-300">Something went wrong. Please try again.</p>}
+                {submitting ? "Submitting..." : "Get Started"}
+              </button>
+            </form>
+            {status === "success" ? <p className="mt-3 text-emerald-200">Thanks — we&apos;ll reach out shortly.</p> : null}
+            {status === "error" ? <p className="mt-3 text-rose-300">Something went wrong. Please try again.</p> : null}
           </div>
         </div>
       )}
