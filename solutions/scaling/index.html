@@ -134,6 +134,148 @@
       .center { text-align: center; }
       .small-link { margin-top: 10px; display: inline-block; color: rgba(229,255,236,.8); }
 
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(3px);
+        z-index: 220;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+
+      .modal-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .modal {
+        width: min(560px, 100%);
+        background: rgba(5, 19, 11, 0.74);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 28px;
+        box-shadow: inset 0 1px 0 rgba(186, 255, 214, 0.16), 0 16px 34px rgba(0, 0, 0, 0.52), 0 0 28px rgba(104, 255, 156, 0.2);
+        transform: translateY(8px) scale(0.98);
+        transition: transform 0.22s ease;
+      }
+
+      .modal-overlay.open .modal {
+        transform: translateY(0) scale(1);
+      }
+
+      .modal h3 {
+        font-size: clamp(28px, 3vw, 38px);
+        line-height: 1.12;
+        margin-bottom: 10px;
+      }
+
+      .modal p {
+        color: rgba(220, 244, 228, 0.78);
+        line-height: 1.52;
+      }
+
+      .modal form {
+        margin-top: 18px;
+      }
+
+      .modal input {
+        width: 100%;
+        height: 52px;
+        padding: 0 16px;
+        border-radius: 12px;
+        border: 1px solid rgba(148, 255, 192, 0.46);
+        background: rgba(0, 0, 0, 0.42);
+        color: #f3fff8;
+        font-size: 16px;
+        outline: none;
+      }
+
+      .modal input:focus {
+        border-color: rgba(174, 255, 207, 0.86);
+        box-shadow: 0 0 0 3px rgba(96, 255, 151, 0.18);
+      }
+
+      .modal .actions {
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .notify {
+        height: 48px;
+        border: 1px solid rgba(185, 255, 208, 0.84);
+        border-radius: 999px;
+        padding: 0 22px;
+        background: linear-gradient(180deg, #adffc1, #70f393);
+        color: #072311;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .notify:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .close {
+        border: 0;
+        background: transparent;
+        color: #b8ffd1;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+
+      .modal-status {
+        margin-top: 10px;
+        min-height: 20px;
+        font-size: 14px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 0.26s ease, transform 0.26s ease;
+      }
+
+      .modal-status.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .modal-status.exit {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      .modal-status.success {
+        color: #90d8ff;
+        text-shadow: 0 0 10px rgba(108, 198, 255, 0.22);
+      }
+
+      .modal-status.error {
+        color: rgba(255, 197, 206, 0.9);
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
       @media (max-width: 980px) {
         .nav-center, .signin { display: none; }
         .hero, .two-col, .cards-3, .cards-6 { grid-template-columns: 1fr; }
@@ -172,7 +314,7 @@
             <p class="lead">Axolity expands execution capacity across structured workflows without the overhead of hiring, handoffs, and management drag.</p>
             <p class="sub">Define the workflow, constraints, and approvals — Axolity handles routing, execution, updates, and handoff-ready output.</p>
             <div class="cta">
-              <a class="btn-primary" href="#get-started">Get Started</a>
+              <a class="btn-primary" id="openDemoModal" href="#get-started">Get Started</a>
               <a class="btn-secondary" href="#how-it-works">See how it works</a>
             </div>
           </div>
@@ -249,12 +391,175 @@
           <h2>Stop adding process drag. Start increasing output.</h2>
           <p class="lead" style="max-width:780px;margin:12px auto 0;font-size:22px;">Tell Axolity what the system needs to do — we run the workflow.</p>
           <div class="cta" style="justify-content:center;">
-            <a class="btn-primary" href="mailto:hello@axolity.com?subject=Get%20Started%20with%20Scaling">Get Started</a>
+            <a class="btn-primary" id="openDemoModalFinal" href="mailto:hello@axolity.com?subject=Get%20Started%20with%20Scaling">Get Started</a>
           </div>
           <a class="small-link" href="#top">Back to top</a>
         </section>
       </main>
     </div>
+
+    <div class="modal-overlay" id="demoModalOverlay" aria-hidden="true">
+      <section
+        class="modal"
+        id="demoModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="demoModalTitle"
+        aria-describedby="demoModalBody"
+      >
+        <h3 id="demoModalTitle">Get a Demo</h3>
+        <p id="demoModalBody">Enter your work email and Axolity will reach out with a guided walkthrough.</p>
+        <form id="demoForm" novalidate>
+          <label class="sr-only" for="demoEmail">Work email</label>
+          <input id="demoEmail" name="email" type="email" placeholder="Enter your work email" required />
+          <div class="actions">
+            <button class="notify" id="demoSubmit" type="submit">Notify me</button>
+            <button class="close" id="demoClose" type="button">Close</button>
+          </div>
+          <p class="modal-status" id="demoStatus" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </div>
+
+
+    <script>
+      (() => {
+        const openBtns = [
+          document.getElementById("openDemoModal"),
+          document.getElementById("openDemoModalFinal"),
+        ].filter(Boolean);
+        const closeBtn = document.getElementById("demoClose");
+        const overlay = document.getElementById("demoModalOverlay");
+        const modal = document.getElementById("demoModal");
+        const form = document.getElementById("demoForm");
+        const email = document.getElementById("demoEmail");
+        const submitBtn = document.getElementById("demoSubmit");
+        const status = document.getElementById("demoStatus");
+        const formspreeEndpoint = "https://formspree.io/f/xvzbdvbw";
+
+        let lastFocused = null;
+        let isSubmitting = false;
+        let statusHideTimer = null;
+        let statusExitTimer = null;
+
+        const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+
+        function isValidEmail(value) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+        }
+
+        function showStatus(message, type) {
+          if (statusHideTimer) clearTimeout(statusHideTimer);
+          if (statusExitTimer) clearTimeout(statusExitTimer);
+
+          status.textContent = message;
+          status.classList.remove("success", "error", "exit");
+          status.classList.add(type);
+
+          requestAnimationFrame(() => {
+            status.classList.add("visible");
+          });
+
+          const exitDelay = type === "success" ? 5900 : 3600;
+          const hideDelay = type === "success" ? 7000 : 4700;
+
+          statusExitTimer = setTimeout(() => {
+            status.classList.add("exit");
+          }, exitDelay);
+
+          statusHideTimer = setTimeout(() => {
+            status.classList.remove("visible", "success", "error", "exit");
+            status.textContent = "";
+          }, hideDelay);
+        }
+
+        function openModal(event) {
+          event.preventDefault();
+          lastFocused = document.activeElement;
+          overlay.classList.add("open");
+          overlay.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+          email.focus();
+        }
+
+        function closeModal() {
+          overlay.classList.remove("open");
+          overlay.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          if (lastFocused) lastFocused.focus();
+        }
+
+        function trapFocus(event) {
+          if (!overlay.classList.contains("open") || event.key !== "Tab") return;
+          const focusables = modal.querySelectorAll(focusableSelector);
+          if (!focusables.length) return;
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          const active = document.activeElement;
+          if (event.shiftKey && active === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && active === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+
+        openBtns.forEach((btn) => btn.addEventListener("click", openModal));
+        closeBtn.addEventListener("click", closeModal);
+
+        overlay.addEventListener("click", (event) => {
+          if (event.target === overlay) closeModal();
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && overlay.classList.contains("open")) {
+            closeModal();
+          }
+          trapFocus(event);
+        });
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          if (isSubmitting) return;
+
+          const value = email.value.trim();
+          if (!isValidEmail(value)) {
+            showStatus("Please enter a valid work email.", "error");
+            return;
+          }
+
+          const payload = new FormData();
+          payload.append("email", value);
+
+          isSubmitting = true;
+          submitBtn.disabled = true;
+
+          try {
+            const response = await fetch(formspreeEndpoint, {
+              method: "POST",
+              headers: {
+                Accept: "application/json",
+              },
+              body: payload,
+            });
+
+            if (!response.ok) {
+              throw new Error("Submission failed");
+            }
+
+            email.value = "";
+            showStatus("An agent will reach out to you shortly", "success");
+          } catch (_error) {
+            showStatus("Something went wrong. Please try again.", "error");
+          } finally {
+            isSubmitting = false;
+            submitBtn.disabled = false;
+          }
+        });
+      })();
+    </script>
+
     <script>
       (() => {
         const signInErrorMessage = "Error: This IP address is not associated with a verified Axolity account. Please try again later.";
