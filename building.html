@@ -184,7 +184,6 @@
       .has-dropdown.open .solutions-trigger::after {
         transform: rotate(180deg);
       }
-
       .signin {
         color: #fff;
         text-decoration: none;
@@ -740,6 +739,15 @@
 
         const allDropdowns = document.querySelectorAll(".has-dropdown");
         const mobileDropdowns = mobilePanel ? mobilePanel.querySelectorAll(".has-dropdown") : [];
+
+        const signInErrorMessage = "Error: This IP address is not associated with a verified Axolity account. Please try again later.";
+
+        document.querySelectorAll(".signin, .mobile-signin").forEach((signInLink) => {
+          signInLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            window.alert(signInErrorMessage);
+          });
+        });
 
         function closeDropdown(dropdown) {
           dropdown.classList.remove("open");
