@@ -22,14 +22,63 @@
           #020402;
       }
       #top-nav {
-        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-        height: 92px; display: flex; align-items: center; justify-content: center;
-        border-bottom: 1px solid var(--line); backdrop-filter: blur(6px); background: rgba(0,0,0,.72);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 92px;
+        padding: 0 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        background: rgba(0, 0, 0, 0.72);
+        z-index: 200;
       }
-      .nav-inner { width: min(1240px, calc(100vw - 32px)); display: flex; justify-content: space-between; align-items: center; }
-      .brand { color: var(--green); text-decoration: none; font-size: 30px; font-weight: 600; letter-spacing: .04em; }
-      .nav-center { display: flex; gap: 68px; align-items: center; }
-      .nav-center a, .nav-btn { color: #fff; text-decoration: none; font-size: 20px; }
+      .nav-inner {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        flex-shrink: 0;
+      }
+      .brand img {
+        width: 34px;
+        height: 34px;
+        margin-right: 14px;
+        transform: translateX(-4px);
+        display: block;
+      }
+      .brand span {
+        color: var(--green);
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.045em;
+        line-height: 1;
+      }
+      .nav-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 78px;
+      }
+      .navlink,
+      .nav-center a,
+      .nav-btn {
+        color: #fff;
+        text-decoration: none;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 1;
+        opacity: 0.96;
+      }
       .nav-btn { background: transparent; border: 0; cursor: pointer; }
       .has-dropdown { position: relative; padding-bottom: 14px; margin-bottom: -14px; }
       .dropdown { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); min-width: 210px; padding: 8px; display: grid; gap: 4px;
@@ -38,7 +87,7 @@
       .dropdown a { padding: 10px 12px; border-radius: 10px; font-size: 15px; }
       .dropdown a:hover { background: rgba(255,255,255,.08); color: var(--green); }
       .has-dropdown:hover .dropdown, .has-dropdown:focus-within .dropdown { opacity: 1; visibility: visible; pointer-events: auto; }
-      .signin { border: 1px solid rgba(255,255,255,.55); padding: 10px 30px; border-radius: 999px; }
+      .signin { color: #fff; text-decoration: none; border: 1.5px solid rgba(255, 255, 255, 0.55); border-radius: 999px; padding: 10px 30px; font-size: 20px; line-height: 1; font-weight: 500; text-align: center; }
 
       main { width: min(1200px, calc(100vw - 32px)); margin: 0 auto; padding: 126px 0 72px; display: grid; gap: 24px; }
       .panel { border: 1px solid var(--line); border-radius: 24px; background: var(--panel); backdrop-filter: blur(10px); padding: 34px; }
@@ -88,21 +137,24 @@
     <div class="bg">
       <nav id="top-nav" aria-label="Primary">
         <div class="nav-inner">
-          <a class="brand" href="../../index.html">AXOLITY</a>
+          <a class="brand" href="../../index.html" aria-label="Axolity home">
+            <img src="../../neural_icon.png" alt="Axolity icon" />
+            <span>AXOLITY</span>
+          </a>
           <div class="nav-center">
             <div class="has-dropdown">
-              <button class="nav-btn" type="button" aria-label="Solutions menu">Solutions ▾</button>
+              <button class="navlink nav-btn" type="button" aria-label="Solutions menu">Solutions ▾</button>
               <div class="dropdown" role="menu" aria-label="Solutions submenu">
                 <a href="../../building.html" role="menuitem">Building</a>
                 <a href="../../marketing.html" role="menuitem">Marketing</a>
                 <a href="../../solutions/scaling/" role="menuitem">Scaling</a>
               </div>
             </div>
-            <a href="../../research.html">Research</a>
-            <a href="../../company.html">Company</a>
-            <a href="../../hiring.html">Jobs</a>
+            <a class="navlink" href="../../research.html">Research</a>
+            <a class="navlink" href="../../company.html">Company</a>
+            <a class="navlink" href="../../hiring.html">Jobs</a>
           </div>
-          <a class="signin" href="#">Sign in</a>
+          <a class="signin" href="#signin">Sign in</a>
         </div>
       </nav>
 
@@ -196,5 +248,16 @@
         </section>
       </main>
     </div>
+    <script>
+      (() => {
+        const signInErrorMessage = "Error: This IP address is not associated with a verified Axolity account. Please try again later.";
+        document.querySelectorAll(".signin, .mobile-signin").forEach((signInLink) => {
+          signInLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            window.alert(signInErrorMessage);
+          });
+        });
+      })();
+    </script>
   </body>
 </html>
