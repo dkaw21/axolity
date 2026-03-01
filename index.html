@@ -183,7 +183,6 @@
       .has-dropdown.open .solutions-trigger::after {
         transform: rotate(180deg);
       }
-
       .signin {
         color: #fff;
         text-decoration: none;
@@ -621,7 +620,6 @@
           <p class="lead-status" id="leadStatus" role="status" aria-live="polite"></p>
         </div>
 
-        <button class="down" type="button" aria-label="Scroll down">↓</button>
       </section>
     </div>
 
@@ -635,6 +633,15 @@
         const leadButton = leadForm ? leadForm.querySelector('button[type="submit"]') : null;
         const leadStatus = document.getElementById("leadStatus");
         const formspreeEndpoint = "https://formspree.io/f/xvzbdvbw";
+
+        const signInErrorMessage = "Error: This IP address is not associated with a verified Axolity account. Please try again later.";
+
+        document.querySelectorAll(".signin, .mobile-signin").forEach((signInLink) => {
+          signInLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            window.alert(signInErrorMessage);
+          });
+        });
 
         const allDropdowns = document.querySelectorAll(".has-dropdown");
         const mobileDropdowns = mobilePanel ? mobilePanel.querySelectorAll(".has-dropdown") : [];
