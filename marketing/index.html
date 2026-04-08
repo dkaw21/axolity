@@ -133,7 +133,8 @@
         background-size: cover;
         background-position: center;
         filter: brightness(0.8) contrast(0.96) saturate(1.02);
-        animation: drift 28s ease-in-out infinite alternate;
+        animation: drift 36s ease-in-out infinite alternate;
+        will-change: transform;
       }
 
       .hero::after {
@@ -248,9 +249,9 @@
         background: var(--panel);
         border: 1px solid var(--line);
         border-radius: 20px;
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(8px);
         padding: 32px;
-        box-shadow: inset 0 1px 0 rgba(186, 255, 214, 0.16), 0 12px 34px rgba(0, 0, 0, 0.35), 0 0 22px rgba(104, 255, 156, 0.15);
+        box-shadow: inset 0 1px 0 rgba(186, 255, 214, 0.14), 0 10px 24px rgba(0, 0, 0, 0.3), 0 0 14px rgba(104, 255, 156, 0.12);
       }
 
       .label {
@@ -578,13 +579,35 @@
       @media (max-width: 900px) {
         #top-nav { height: 76px; padding: 0 16px; }
         .nav-center, .signin { display: none; }
-        .hero { padding-top: 102px; }
+        .hero { padding: 102px 18px 56px; min-height: auto; }
+        .hero-inner { width: min(700px, 100%); }
+        h1 { font-size: clamp(32px, 8.4vw, 52px); line-height: 1.1; }
+        .sub { margin-top: 18px; font-size: clamp(16px, 4vw, 20px); line-height: 1.5; }
+        .hero-cta { margin-top: 28px; }
+        .chips { margin-top: 16px; gap: 8px; }
+        .chip { font-size: 12px; padding: 7px 10px; }
+        .section { width: min(1160px, calc(100vw - 28px)); margin-top: 20px; }
+        .panel { padding: 24px 18px; border-radius: 18px; }
         .grid-2, .grid-3, .grid-6, .compare { grid-template-columns: 1fr; }
+        .card { padding: 18px 16px; }
+        .row { padding: 13px 12px; }
+        .k { font-size: 13px; }
         .steps::before { display: none; }
-        .cta-btn { width: min(340px, 100%); min-width: 0; }
+        .cta-btn { width: min(340px, 100%); min-width: 0; height: 60px; font-size: 18px; }
+      }
+
+      @media (max-width: 640px) {
+        .hero { padding: 94px 14px 44px; }
+        h1 { font-size: clamp(30px, 9.6vw, 40px); }
+        .hero-link { margin-top: 12px; font-size: 15px; }
+        .section { width: calc(100vw - 20px); }
+        .panel { padding: 20px 14px; }
+        h2 { font-size: clamp(26px, 7.4vw, 34px); }
+        .card h3 { font-size: 22px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
         * { animation: none !important; transition: none !important; }
       }
     </style>
@@ -631,7 +654,6 @@
             <span class="chip">Campaign Setup</span>
             <span class="chip">Continuous Optimization</span>
           </div>
-          <a class="down" href="#offer-snapshot" aria-label="Scroll to offer snapshot">↓</a>
         </div>
       </section>
 

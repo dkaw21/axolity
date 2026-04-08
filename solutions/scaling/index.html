@@ -97,7 +97,7 @@
       .signin { color: #fff; text-decoration: none; border: 1.5px solid rgba(255, 255, 255, 0.55); border-radius: 999px; padding: 10px 30px; font-size: 20px; line-height: 1; font-weight: 500; text-align: center; }
 
       main { width: min(1200px, calc(100vw - 32px)); margin: 0 auto; padding: 126px 0 72px; display: grid; gap: 24px; }
-      .panel { border: 1px solid var(--line); border-radius: 24px; background: var(--panel); backdrop-filter: blur(10px); padding: 34px; }
+      .panel { border: 1px solid var(--line); border-radius: 24px; background: var(--panel); backdrop-filter: blur(6px); padding: 34px; }
       .hero { display: grid; gap: 24px; grid-template-columns: 1.15fr 1fr; position: relative; overflow: hidden; }
       h1 { font-size: clamp(42px, 7vw, 96px); line-height: .95; }
       .green { color: var(--green); }
@@ -107,7 +107,7 @@
       .btn-primary { background: linear-gradient(to bottom, #cefcd5, #58e285); color: #05320f; border: 1px solid #b3f4c3; font-weight: 700; border-radius: 999px; padding: 13px 24px; text-decoration: none; }
       .btn-secondary { color: #d5ffe2; text-decoration: none; }
 
-      .console { border: 1px solid rgba(137, 255, 184, .35); border-radius: 22px; padding: 18px; background: rgba(10, 29, 16, .52); box-shadow: 0 0 32px rgba(44, 212, 106, .18); }
+      .console { border: 1px solid rgba(137, 255, 184, .35); border-radius: 22px; padding: 18px; background: rgba(10, 29, 16, .52); box-shadow: 0 0 20px rgba(44, 212, 106, .14); }
       .console h3 { font-size: 12px; letter-spacing: .11em; text-transform: uppercase; color: rgba(197, 255, 217, .82); margin-bottom: 10px; }
       .console-grid { display: grid; gap: 10px; }
       .mini { border: 1px solid rgba(177, 255, 206, .22); border-radius: 12px; padding: 10px 12px; background: rgba(0,0,0,.36); }
@@ -279,6 +279,31 @@
       @media (max-width: 980px) {
         .nav-center, .signin { display: none; }
         .hero, .two-col, .cards-3, .cards-6 { grid-template-columns: 1fr; }
+        #top-nav { height: 76px; padding: 0 16px; }
+        .brand img { width: 30px; height: 30px; margin-right: 10px; transform: translateX(0); }
+        .brand span { font-size: 22px; }
+        main { width: min(1200px, calc(100vw - 20px)); padding: 92px 0 40px; gap: 16px; }
+        .panel { padding: 22px 16px; border-radius: 18px; }
+        .hero { gap: 16px; }
+        h1 { font-size: clamp(34px, 10vw, 54px); line-height: 1.02; }
+        .lead { margin-top: 12px; font-size: clamp(18px, 5.4vw, 24px); }
+        .sub { margin-top: 12px; font-size: clamp(15px, 4.2vw, 18px); line-height: 1.45; }
+        .cta { margin-top: 20px; }
+        .btn-primary, .btn-secondary { width: min(340px, 100%); text-align: center; padding: 12px 18px; }
+        .box, .card { padding: 15px 14px; }
+        th, td { padding: 10px; font-size: 14px; }
+      }
+
+      @media (max-width: 640px) {
+        main { width: calc(100vw - 16px); padding-top: 84px; }
+        .panel { padding: 18px 12px; }
+        h2 { font-size: clamp(26px, 8.2vw, 34px); }
+        .cards-3, .cards-6, .two-col { gap: 10px; margin-top: 14px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        * { animation: none !important; transition: none !important; }
       }
     </style>
       <link rel="canonical" href="https://www.axolity.com/solutions/scaling/" />
