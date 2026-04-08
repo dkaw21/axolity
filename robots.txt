@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /google-site-verification-template.html
+Disallow: /README.md
+Sitemap: https://www.axolity.com/sitemap.xml
